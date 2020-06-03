@@ -6,12 +6,17 @@ package org.oop18.entities;
 public class TravelCode {
     private Integer id;
     private Integer travelCode;
-    private Integer travelCodeName;
+    private String travelCodeName;
 
     public TravelCode() {
     }
 
-    public TravelCode(Integer id, Integer travelCode, Integer travelCodeName) {
+    public TravelCode(Integer travelCode, String travelCodeName) {
+        this.travelCode = travelCode;
+        this.travelCodeName = travelCodeName;
+    }
+
+    public TravelCode(Integer id, Integer travelCode, String travelCodeName) {
         this.id = id;
         this.travelCode = travelCode;
         this.travelCodeName = travelCodeName;
@@ -33,11 +38,11 @@ public class TravelCode {
         this.travelCode = travelCode;
     }
 
-    public Integer getTravelCodeName() {
+    public String getTravelCodeName() {
         return travelCodeName;
     }
 
-    public void setTravelCodeName(Integer travelCodeName) {
+    public void setTravelCodeName(String travelCodeName) {
         this.travelCodeName = travelCodeName;
     }
 }

@@ -10,8 +10,8 @@ import java.util.List;
 
 
 public interface OrderAdapter {
-    Order createOrder(Integer userId, Integer productId, Integer adultCount, Integer childrenCount) throws CreateException;
-    Order updateOrder(Integer orderId, Integer adultCount, Integer childrenCount) throws UpdateException;
-    Order deleteOrder(Integer orderId) throws DeleteException;
+    Order createOrder(Order order) throws CreateException;
+    Order updateOrder(Order order) throws UpdateException;
+    Order deleteOrder(Order order) throws DeleteException;
     List<Order> queryOrders(Integer userId) throws QueryException;
 }

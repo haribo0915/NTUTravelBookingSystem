@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="104.0" prefWidth="700.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <ImageView fitHeight="65.0" fitWidth="54.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/magnifying-glass.png" />
+               </image>
+            </ImageView>
+            <ComboBox fx:id="travelCodeComboBox" layoutX="101.0" layoutY="54.0" prefWidth="150.0" promptText="Destination" style="-fx-background-color: #ffffff; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" />
+            <DatePicker fx:id="datePicker" editable="false" layoutX="304.0" layoutY="55.0" promptText="Departure Date" />
+            <ImageView fitHeight="26.0" fitWidth="37.0" layoutX="68.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/covid.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="26.0" fitWidth="37.0" layoutX="272.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/calendar.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="queryUserOrdersBtn" layoutX="654.0" layoutY="9.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="38.0" style="-fx-background-color: #ffffff;">
+               <graphic>
+                  <ImageView fitHeight="29.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/purchase-order.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Label layoutX="579.0" layoutY="14.0" prefHeight="27.0" prefWidth="74.0" text="My Orders :" textFill="#0d7fd9">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="queryProductsBtn" layoutX="503.0" layoutY="56.0" mnemonicParsing="false" onAction="#queryProductsHandler" prefHeight="21.0" prefWidth="37.0" style="-fx-background-radius: 30; -fx-background-color: #0598ff;" text="Go" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="106.0" prefHeight="393.0" prefWidth="700.0">
+         <children>
+            <TableView prefHeight="366.0" prefWidth="700.0">
+              <columns>
+                <TableColumn fx:id="productTitleCol" prefWidth="292.7999938726425" style="-fx-background-color: #ffffff; -fx-selection-bar: #ffffff;" text="Title" />
+                <TableColumn fx:id="productPriceCol" minWidth="0.0" prefWidth="60.0" style="-fx-background-color: #ffffff; -fx-selection-bar: #ffffff;" text="price" />
+                  <TableColumn fx:id="productStartDateCol" prefWidth="124.0" style="-fx-background-color: #ffffff; -fx-selection-bar: #ffffff;" text="start date" />
+                  <TableColumn fx:id="productEndDateCol" prefWidth="113.59994506835938" style="-fx-background-color: #ffffff; -fx-selection-bar: #ffffff;" text="end date" />
+                  <TableColumn fx:id="productLowerBoundCol" prefWidth="55.20001220703125" style="-fx-background-color: #ffffff; -fx-selection-bar: #ffffff;" text="min" />
+                  <TableColumn fx:id="productUpperBoundCol" prefWidth="59.9998779296875" style="-fx-background-color: #ffffff; -fx-selection-bar: #ffffff;" text="max" />
+              </columns>
+            </TableView>
+            <Button fx:id="createOrderBtn" layoutX="619.0" layoutY="368.0" mnemonicParsing="false" onAction="#createOrderHandler" prefHeight="23.0" prefWidth="66.0" style="-fx-background-radius: 30; -fx-background-color: #0598ff;" text="Order" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

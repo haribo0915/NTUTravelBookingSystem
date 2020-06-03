@@ -10,7 +10,37 @@ import java.util.List;
 
 public class JDBCProductAdapter implements ProductAdapter {
     @Override
+    public Product queryProduct(Integer id) throws QueryException {
+        return null;
+    }
+
+    @Override
     public List<Product> queryProducts(TravelCode travelCode, Timestamp startDate) throws QueryException {
+        return null;
+    }
+
+    @Override
+    public List<Product> queryProducts() throws QueryException {
+        return null;
+    }
+
+    @Override
+    public List<Product> queryProducts(TravelCode travelCode) throws QueryException {
+        return null;
+    }
+
+    @Override
+    public List<Product> queryProducts(Timestamp startDate) throws QueryException {
+        return null;
+    }
+
+    @Override
+    public List<TravelCode> queryTravelCodes() throws QueryException {
+        return null;
+    }
+
+    @Override
+    public TravelCode queryTravelCode(String travelCodeName) throws QueryException {
         return null;
     }
 }

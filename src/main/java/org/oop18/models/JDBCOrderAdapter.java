@@ -11,17 +11,17 @@ import java.util.List;
 
 public class JDBCOrderAdapter implements OrderAdapter {
     @Override
-    public Order createOrder(Integer userId, Integer productId, Integer adultCount, Integer childrenCount) throws CreateException {
+    public Order createOrder(Order order) throws CreateException {
         return null;
     }
 
     @Override
-    public Order updateOrder(Integer orderId, Integer adultCount, Integer childrenCount) throws UpdateException {
+    public Order updateOrder(Order order) throws UpdateException {
         return null;
     }
 
     @Override
-    public Order deleteOrder(Integer orderId) throws DeleteException {
+    public Order deleteOrder(Order order) throws DeleteException {
         return null;
     }
 

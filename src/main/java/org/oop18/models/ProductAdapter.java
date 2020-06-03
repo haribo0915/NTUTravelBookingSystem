@@ -9,6 +9,12 @@ import java.util.List;
 
 
 public interface ProductAdapter {
+    Product queryProduct(Integer id) throws QueryException;
+    List<Product> queryProducts() throws QueryException;
+    List<Product> queryProducts(TravelCode travelCode) throws QueryException;
+    List<Product> queryProducts(Timestamp startDate) throws QueryException;
     List<Product> queryProducts(TravelCode travelCode, Timestamp startDate) throws QueryException;
+    List<TravelCode> queryTravelCodes() throws QueryException;
+    TravelCode queryTravelCode(String travelCodeName) throws QueryException;
 
 }

@@ -11,6 +11,11 @@ public class User {
     public User() {
     }
 
+    public User(String account, String password) {
+        this.account = account;
+        this.password = password;
+    }
+
     public User(Integer id, String account, String password) {
         this.id = id;
         this.account = account;
