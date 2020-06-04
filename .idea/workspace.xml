@@ -2,26 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c032c4c3-3666-40af-b728-705b393f261b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubOrderAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubOrderAdapterFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubProductAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubProductAdapterFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubUserAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubUserAdapterFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/OrderDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/OrderDialogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/TravelItineraryListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/TravelItineraryListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/UserOrderDetailsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/UserOrderDetailsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/UserOrderListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/UserOrderListController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCProductAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCProductAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/ProductAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/ProductAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/TravelItineraryList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/TravelItineraryList.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/UserOrderList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/UserOrderList.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/oop18/controllers/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/oop18/controllers/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/oop18/controllers/TravelItineraryListController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/oop18/controllers/TravelItineraryListController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/TravelItineraryList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/TravelItineraryList.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,6 +121,7 @@
       <workItem from="1590998221701" duration="5754000" />
       <workItem from="1591185317595" duration="16317000" />
       <workItem from="1591241952855" duration="11178000" />
+      <workItem from="1591258655102" duration="323000" />
     </task>
     <servers />
   </component>
