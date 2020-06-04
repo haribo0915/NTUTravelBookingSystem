@@ -20,8 +20,8 @@
                   <Image url="@../images/magnifying-glass.png" />
                </image>
             </ImageView>
-            <ComboBox fx:id="travelCodeComboBox" layoutX="101.0" layoutY="54.0" prefWidth="150.0" promptText="Destination" style="-fx-background-color: #ffffff; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" />
-            <DatePicker fx:id="datePicker" editable="false" layoutX="304.0" layoutY="55.0" promptText="Departure Date" />
+            <ComboBox fx:id="travelCodeComboBox" editable="true" layoutX="101.0" layoutY="54.0" prefWidth="150.0" promptText="Destination" style="-fx-background-color: #ffffff; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" />
+            <DatePicker fx:id="datePicker" layoutX="304.0" layoutY="55.0" promptText="Departure Date" style="-fx-border-width: 0px 0px 2px 0px; -fx-border-color: #0598ff;" />
             <ImageView fitHeight="26.0" fitWidth="37.0" layoutX="68.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/covid.png" />
@@ -50,7 +50,7 @@
       </AnchorPane>
       <AnchorPane layoutY="106.0" prefHeight="393.0" prefWidth="700.0">
          <children>
-            <TableView prefHeight="366.0" prefWidth="700.0">
+            <TableView fx:id="productTable" prefHeight="366.0" prefWidth="700.0">
               <columns>
                 <TableColumn fx:id="productTitleCol" prefWidth="292.7999938726425" style="-fx-background-color: #ffffff; -fx-selection-bar: #ffffff;" text="Title" />
                 <TableColumn fx:id="productPriceCol" minWidth="0.0" prefWidth="60.0" style="-fx-background-color: #ffffff; -fx-selection-bar: #ffffff;" text="price" />

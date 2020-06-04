@@ -1,5 +1,6 @@
 package org.oop18.controllers;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -65,7 +66,7 @@ public class UserOrderDetailsController implements Initializable {
         }
     }
 
-    public void saveOrderHandler(ActionEvent event) {
+    public void saveOrderHandler(Event event) {
         try {
             Integer adultCount = Integer.valueOf(adultCountTextField.getText());
             Integer childrenCount = Integer.valueOf(childrenCountTextField.getText());

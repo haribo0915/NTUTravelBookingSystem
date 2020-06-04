@@ -20,21 +20,6 @@ public class JDBCProductAdapter implements ProductAdapter {
     }
 
     @Override
-    public List<Product> queryProducts() throws QueryException {
-        return null;
-    }
-
-    @Override
-    public List<Product> queryProducts(TravelCode travelCode) throws QueryException {
-        return null;
-    }
-
-    @Override
-    public List<Product> queryProducts(Timestamp startDate) throws QueryException {
-        return null;
-    }
-
-    @Override
     public List<TravelCode> queryTravelCodes() throws QueryException {
         return null;
     }

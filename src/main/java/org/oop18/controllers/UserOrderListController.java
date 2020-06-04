@@ -3,6 +3,7 @@ package org.oop18.controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -94,7 +95,7 @@ public class UserOrderListController implements Initializable {
         orderTable.setItems(orderTableObservableList);
     }
 
-    public void querySelectedUserOrderHandler(ActionEvent event) {
+    public void querySelectedUserOrderHandler(Event event) {
         try {
             Order selectedUserOrder = orderTable.getSelectionModel().getSelectedItem();
             loadUserOrderDetailsView(event, selectedUserOrder);
@@ -104,7 +105,7 @@ public class UserOrderListController implements Initializable {
         }
     }
 
-    private void loadUserOrderDetailsView(ActionEvent event, Order selectedUserOrder) {
+    private void loadUserOrderDetailsView(Event event, Order selectedUserOrder) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/OrderDialog.fxml"));
 
@@ -123,7 +124,7 @@ public class UserOrderListController implements Initializable {
         }
     }
 
-    public void deleteSelectedUserOrderHandler(ActionEvent event) {
+    public void deleteSelectedUserOrderHandler(Event event) {
         try {
             Order selectedOrder = orderTable.getSelectionModel().getSelectedItem();
             selectedOrder = orderAdapter.deleteOrder(selectedOrder);

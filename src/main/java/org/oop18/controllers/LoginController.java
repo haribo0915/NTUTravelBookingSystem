@@ -48,6 +48,7 @@ public class LoginController {
         try {
             UserAdapter userAdapter = userAdapterFactory.create();
             User currentUser = userAdapter.queryUser(userName.getText(), password.getText());
+            //User currentUser = new User(1, "admin", "admin");
             System.out.println("login success!!");
             loadTravelItineraryListView(event, currentUser);
         } catch (QueryException e) {

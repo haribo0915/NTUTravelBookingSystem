@@ -2,6 +2,7 @@ package org.oop18.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,9 +25,14 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * @author - Haribo
@@ -82,12 +88,12 @@ public class TravelItineraryListController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            List<Product> productList = productAdapter.queryProducts();
-
+            List<Product> productList = productAdapter.queryProducts(null, null);
             productTableObservableList.addAll(productList);
             productTable.setItems(productTableObservableList);
 
             List<TravelCode> travelCodeList = productAdapter.queryTravelCodes();
+            System.out.println(travelCodeList);
             for (TravelCode travelCode: travelCodeList) {
                 travelCodeComboBoxObservableList.add(travelCode.getTravelCodeName());
             }
@@ -98,7 +104,7 @@ public class TravelItineraryListController implements Initializable {
         }
 
         initProductTable();
-        queryProductsBtn.setDisable(true);
+        //queryProductsBtn.setDisable(true);
     }
 
     private void initProductTable() {
@@ -116,34 +122,25 @@ public class TravelItineraryListController implements Initializable {
         productTable.setItems(productTableObservableList);
     }
 
-    public void queryProductsHandler(ActionEvent event) {
+    public void queryProductsHandler(Event event) {
         try {
             String travelCodeName = travelCodeComboBox.getValue();
-            String localDate = datePicker.getValue().toString();
+            String localDateStr = datePicker.getEditor().getText();
+            DateFormat formatter = new SimpleDateFormat("yyyy/M/d");
 
-            if (!travelCodeName.equals("") && !localDate.equals("")) {
-                Timestamp startDate = Timestamp.valueOf(datePicker.getValue().atStartOfDay());
-                TravelCode travelCode = productAdapter.queryTravelCode(travelCodeName);
-                List<Product> productList = productAdapter.queryProducts(travelCode, startDate);
-                refreshProductTable(productList);
-            } else if (!travelCodeName.equals("")) {
-                TravelCode travelCode = productAdapter.queryTravelCode(travelCodeName);
-                List<Product> productList = productAdapter.queryProducts(travelCode);
-                refreshProductTable(productList);
-            } else if (!localDate.equals("")) {
-                Timestamp startDate = Timestamp.valueOf(datePicker.getValue().atStartOfDay());
-                List<Product> productList = productAdapter.queryProducts(startDate);
-                refreshProductTable(productList);
-            } else {
-                System.out.println("Please select travel code or start date");
-            }
+            TravelCode travelCode = (travelCodeName == null || travelCodeName.equals(""))? null : productAdapter.queryTravelCode(travelCodeName);
+            Timestamp startDate = (localDateStr == null || localDateStr.equals(""))? null : new Timestamp(formatter.parse(localDateStr).getTime());
+
+            List<Product> productList = productAdapter.queryProducts(travelCode, startDate);
+
+            refreshProductTable(productList);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void createOrderHandler(ActionEvent event) {
+    public void createOrderHandler(Event event) {
         try {
             Product selectedProduct = productTable.getSelectionModel().getSelectedItem();
             loadOrderDialogView(event, selectedProduct);
@@ -152,7 +149,7 @@ public class TravelItineraryListController implements Initializable {
         }
     }
 
-    private void loadOrderDialogView(ActionEvent event, Product selectedProduct) {
+    private void loadOrderDialogView(Event event, Product selectedProduct) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/OrderDialog.fxml"));
 
@@ -171,7 +168,7 @@ public class TravelItineraryListController implements Initializable {
         }
     }
 
-    public void queryUserOrdersHandler(ActionEvent event) {
+    public void queryUserOrdersHandler(Event event) {
         try {
             loadUserOrderListView(event);
         } catch (Exception e) {
@@ -179,7 +176,7 @@ public class TravelItineraryListController implements Initializable {
         }
     }
 
-    private void loadUserOrderListView(ActionEvent event) {
+    private void loadUserOrderListView(Event event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/UserOrderList.fxml"));
 
