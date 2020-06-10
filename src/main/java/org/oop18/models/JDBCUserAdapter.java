@@ -3,7 +3,6 @@ package org.oop18.models;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.oop18.entities.User;
