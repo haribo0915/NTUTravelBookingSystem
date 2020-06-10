@@ -55,7 +55,7 @@ public class JDBCUserAdapter implements UserAdapter {
 				rs = st.executeQuery(query);
 			
 	    		rs.next();
-	            int id = rs.getInt("id");
+	            Integer id = rs.getInt("id");
 	            String Qaccount = rs.getString("account");
 	            String Qpassword = rs.getString("password");
 	            return new User(id, Qaccount, Qpassword);
@@ -90,7 +90,7 @@ public class JDBCUserAdapter implements UserAdapter {
 			// Query user id from DB
     		String query = String.format("SELECT * FROM User WHERE id = %d", userId);
     		rs = st.executeQuery(query);
-        	int id = rs.getInt("id");
+        	Integer id = rs.getInt("id");
             String Qaccount = rs.getString("account");
             String Qpassword = rs.getString("password");
             
@@ -122,7 +122,7 @@ public class JDBCUserAdapter implements UserAdapter {
     			throw new QueryException("No matched account. Perhaps a wrong account or an incorrect password?");
     		}
     		else {
-            	int id = rs.getInt("id");
+            	Integer id = rs.getInt("id");
                 String Qaccount = rs.getString("account");
                 String Qpassword = rs.getString("password");
                 return new User(id, Qaccount, Qpassword);
