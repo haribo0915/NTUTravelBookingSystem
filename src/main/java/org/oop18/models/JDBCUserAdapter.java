@@ -19,8 +19,7 @@ public class JDBCUserAdapter implements UserAdapter {
     private ResultSet rs = null;
     
     /**
-     * Establish MySQL database connection
-     * @return boolean
+     * Establish MySQL database connection when constructed
      */
     public JDBCUserAdapter() throws DBConnectException {
         try {
