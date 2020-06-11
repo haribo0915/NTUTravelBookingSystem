@@ -43,14 +43,14 @@ public class JDBCUserAdapter implements UserAdapter {
     public User createUser(User user) throws CreateException {	
     	try {
     		// Query account and password from DB
-    		String query = String.format("SELECT * FROM User WHERE username = \"%s\" and password = \"%s\"", user.getAccount(), user.getPassword()); 		
+    		String query = String.format("SELECT * FROM User WHERE account = \"%s\" and password = \"%s\"", user.getAccount(), user.getPassword()); 		
     		rs = st.executeQuery(query);
     		
     		// insert account into DB if not exist
     		if (rs.next() == false) {
 				query = String.format("INSERT INTO User (account, password) VALUES (\"%s\", \"%s\")", user.getAccount(), user.getPassword());
 				st.executeUpdate(query);
-				query = String.format("SELECT * FROM User WHERE username = \"%s\" and password = \"%s\"", user.getAccount(), user.getPassword());
+				query = String.format("SELECT * FROM User WHERE account = \"%s\" and password = \"%s\"", user.getAccount(), user.getPassword());
 				rs = st.executeQuery(query);
 			
 	    		rs.next();
@@ -89,6 +89,10 @@ public class JDBCUserAdapter implements UserAdapter {
 			// Query user id from DB
     		String query = String.format("SELECT * FROM User WHERE id = %d", userId);
     		rs = st.executeQuery(query);
+            if (rs.next() == false){
+                throw new DeleteException("User not found");
+            }
+
         	Integer id = rs.getInt("id");
             String Qaccount = rs.getString("account");
             String Qpassword = rs.getString("password");
@@ -113,7 +117,7 @@ public class JDBCUserAdapter implements UserAdapter {
     public User queryUser(String account, String password) throws QueryException {
     	try {
     		// Query account and password from DB
-    		String query = String.format("SELECT * FROM User WHERE username = \"%s\" and password = \"%s\"", account, password); 		
+    		String query = String.format("SELECT * FROM User WHERE account = \"%s\" and password = \"%s\"", account, password); 		
     		rs = st.executeQuery(query);
     		
     		// Throw exception if no matched, else return the result
