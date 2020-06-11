@@ -2,8 +2,16 @@ package org.oop18.models;
 
 import org.oop18.entities.Product;
 import org.oop18.entities.TravelCode;
+import org.oop18.exceptions.CreateException;
+import org.oop18.exceptions.DBConnectException;
+import org.oop18.exceptions.DeleteException;
 import org.oop18.exceptions.QueryException;
+import org.oop18.exceptions.UpdateException;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -17,7 +25,7 @@ public class JDBCProductAdapter implements ProductAdapter {
     /**
      * Establish MySQL database connection when constructed
      */
-    public JDBCUserAdapter() throws DBConnectException {
+    public JDBCProductAdapter() throws DBConnectException {
         try {
             //Class 的靜態 forName() 方法實現動態加載類別
             Class.forName("com.mysql.jdbc.Driver");
