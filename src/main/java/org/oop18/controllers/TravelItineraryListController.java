@@ -29,6 +29,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -123,6 +124,7 @@ public class TravelItineraryListController implements Initializable {
     }
 
     public void queryProductsHandler(Event event) {
+        List<Product> productList = new ArrayList<>();
         try {
             String travelCodeName = travelCodeComboBox.getValue();
             String localDateStr = datePicker.getEditor().getText();
@@ -131,12 +133,11 @@ public class TravelItineraryListController implements Initializable {
             TravelCode travelCode = (travelCodeName == null || travelCodeName.equals(""))? null : productAdapter.queryTravelCode(travelCodeName);
             Timestamp startDate = (localDateStr == null || localDateStr.equals(""))? null : new Timestamp(formatter.parse(localDateStr).getTime());
 
-            List<Product> productList = productAdapter.queryProducts(travelCode, startDate);
-
-            refreshProductTable(productList);
-
+            productList = productAdapter.queryProducts(travelCode, startDate);
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            refreshProductTable(productList);
         }
     }
 

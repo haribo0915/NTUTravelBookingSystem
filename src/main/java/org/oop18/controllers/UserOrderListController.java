@@ -26,6 +26,7 @@ import org.oop18.models.ProductAdapterFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -99,7 +100,6 @@ public class UserOrderListController implements Initializable {
         try {
             Order selectedUserOrder = orderTable.getSelectionModel().getSelectedItem();
             loadUserOrderDetailsView(event, selectedUserOrder);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -125,14 +125,16 @@ public class UserOrderListController implements Initializable {
     }
 
     public void deleteSelectedUserOrderHandler(Event event) {
+        List<Order> orderList = new ArrayList<>();
         try {
             Order selectedOrder = orderTable.getSelectionModel().getSelectedItem();
             selectedOrder = orderAdapter.deleteOrder(selectedOrder);
-            //refresh restaurant table
-            List<Order> orderList = orderAdapter.queryOrders(currentUser.getId());
-            refreshOrderTable(orderList);
+
+            orderList = orderAdapter.queryOrders(currentUser.getId());
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            refreshOrderTable(orderList);
         }
     }
 }
