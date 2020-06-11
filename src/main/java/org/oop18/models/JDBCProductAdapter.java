@@ -9,6 +9,27 @@ import java.util.List;
 
 
 public class JDBCProductAdapter implements ProductAdapter {
+
+    private Connection con = null;
+    private Statement st = null;
+    private ResultSet rs = null;
+    
+    /**
+     * Establish MySQL database connection when constructed
+     */
+    public JDBCUserAdapter() throws DBConnectException {
+        try {
+            //Class 的靜態 forName() 方法實現動態加載類別
+            Class.forName("com.mysql.jdbc.Driver");
+            //3306|MySQL開放此端口
+            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ntu_travel_booking_system","root","root");
+            st = con.createStatement();   
+        } 
+        catch(Exception ex) {
+            throw new DBConnectException(ex.getMessage());
+        }
+    }
+    
     @Override
     public Product queryProduct(Integer id) throws QueryException {
         return null;
