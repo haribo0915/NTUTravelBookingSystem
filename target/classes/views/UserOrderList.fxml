@@ -3,6 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="401.0" prefWidth="485.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -17,7 +19,22 @@
             <TableColumn fx:id="orderCreatedTimeCol" prefWidth="145.60001220703123" style="-fx-background-color: #ffffff; -fx-selection-bar: #ffffff;" text="Created Time" />
         </columns>
       </TableView>
-      <Button fx:id="querySelectedUserOrderBtn" layoutX="435.0" layoutY="14.0" mnemonicParsing="false" onAction="#querySelectedUserOrderHandler" style="-fx-background-color: #7fff6e; -fx-background-radius: 100;" text="Select" />
-      <Button fx:id="deleteSelectedUserOrderBtn" layoutX="498.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteSelectedUserOrderHandler" style="-fx-background-color: #fa5a5a; -fx-background-radius: 100;" text="Delete" />
+      <Button fx:id="querySelectedUserOrderBtn" layoutX="435.0" layoutY="14.0" mnemonicParsing="false" onAction="#querySelectedUserOrderHandler" style="-fx-background-color: #e88c4f; -fx-background-radius: 100;" text="Select" textFill="WHITE" />
+      <Button fx:id="deleteSelectedUserOrderBtn" layoutX="498.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteSelectedUserOrderHandler" style="-fx-background-color: #e84f4f; -fx-background-radius: 100;" text="Delete" textFill="WHITE" />
+      <ImageView fitHeight="31.0" fitWidth="36.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/logistics.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="31.0" fitWidth="36.0" layoutX="59.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/travel.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="31.0" fitWidth="36.0" layoutX="104.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/plane.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
