@@ -24,8 +24,7 @@ public class JDBCOrderAdapter implements OrderAdapter {
     private ResultSet rs = null;
     
     /**
-     * Establish MySQL database connection
-     * @return boolean
+     * Establish MySQL database connection when constructed
      */
     public JDBCOrderAdapter() throws DBConnectException {
         try {
@@ -41,11 +40,21 @@ public class JDBCOrderAdapter implements OrderAdapter {
     }
 	
     @Override
+    /**
+    * Method to create an order
+    * @param order
+    * @return order
+    */
     public Order createOrder(Order order) throws CreateException {
         return null;
     }
 
     @Override
+    /**
+    * Method to update guest number
+    * @param order
+    * @return order
+    */
     public Order updateOrder(Order order) throws UpdateException {
     	try {
     		// Query with order ID
@@ -96,8 +105,14 @@ public class JDBCOrderAdapter implements OrderAdapter {
     }
 
     @Override
+    /**
+    * Method to delete an order
+    * @param order
+    * @return order
+    */
     public Order deleteOrder(Order order) throws DeleteException {
     	try {
+            // Query by order id
     		String query = String.format("SELECT * FROM `order` WHERE `id` = \'%d\'", order.getId());
     		rs = st.executeQuery(query);
     		
@@ -113,6 +128,7 @@ public class JDBCOrderAdapter implements OrderAdapter {
     		Integer totalPrice = rs.getInt("total_price");
     		Timestamp createdTime = rs.getTimestamp("created_time");		
     		
+            // Delete the order
     		query = String.format("DELETE FROM `order` WHERE `id` = \'%d\'", order.getId());
     		st.executeUpdate(query);
 
@@ -124,11 +140,17 @@ public class JDBCOrderAdapter implements OrderAdapter {
     }
 
     @Override
+    /**
+    * Method to query orders
+    * @param order
+    * @return order
+    */
     public List<Order> queryOrders(Integer userId) throws QueryException {
     	
     	List<Order> queryResult = new ArrayList<>();
     	
     	try {
+            // Query order by user id
     		String query = String.format("SELECT * FROM `order` WHERE `user_id` = \'%d\'", userId);
     		rs = st.executeQuery(query);
     		
@@ -136,6 +158,7 @@ public class JDBCOrderAdapter implements OrderAdapter {
     			throw new QueryException("You have not ordered anything yet!");
     		}
     		
+            // Append all orders made by user
     		do {
 	    		Integer id = rs.getInt("id");
 	    		Integer QuserId = rs.getInt("user_id");
