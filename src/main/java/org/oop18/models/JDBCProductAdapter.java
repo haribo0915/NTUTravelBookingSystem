@@ -1,5 +1,6 @@
 package org.oop18.models;
 
+import org.oop18.entities.Order;
 import org.oop18.entities.Product;
 import org.oop18.entities.TravelCode;
 import org.oop18.exceptions.CreateException;
@@ -13,6 +14,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -39,8 +41,27 @@ public class JDBCProductAdapter implements ProductAdapter {
     }
     
     @Override
+    //retrieve data by product id?
     public Product queryProduct(Integer id) throws QueryException {
-        return null;
+        try {
+            String query = String.format("SELECT * from product WHERE id=%d",id);
+            rs = st.executeQuery(query);
+    		if (rs.next() == false) {
+    			throw new QueryException("Product not found!");
+    		}
+            Integer product_id = rs.getInt("id");
+           	Integer travel_code_id=rs.getInt("travel_code_id");
+           	String product_key=rs.getString("product_key");
+           	Integer price=rs.getInt("price");
+           	Timestamp start = rs.getTimestamp("start_date");
+           	Timestamp end = rs.getTimestamp("end_date");
+           	Integer lower_bound=rs.getInt("lower_bound");
+           	Integer upper_bound=rs.getInt("upper_bound");
+           	String title =rs.getString("title");
+           	return new Product(product_id, travel_code_id,title,product_key,price,start,end, lower_bound,upper_bound);         
+        }catch (Exception ex) {
+    		throw new QueryException(ex.getMessage());
+    	}
     }
 
 
