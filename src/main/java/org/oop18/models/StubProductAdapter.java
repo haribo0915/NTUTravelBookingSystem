@@ -38,7 +38,7 @@ public class StubProductAdapter implements ProductAdapter {
 
         if (travelCode != null) {
             productList = productList.stream()
-                                .filter((Product product) -> (product.getTravelCode().equals(travelCode.getId())))
+                                .filter((Product product) -> (product.getTravelCode().equals(travelCode.getTravelCode())))
                                 .collect(Collectors.toList());
         }
         if (startDate != null) {
@@ -58,7 +58,7 @@ public class StubProductAdapter implements ProductAdapter {
             Random rand = new Random();
             Integer randomId = rand.nextInt(50);
             randomId += 1;
-            TravelCode travelCode = new TravelCode(randomId, randomId, "travel code name "+randomId);
+            TravelCode travelCode = new TravelCode(randomId, "travel code name "+randomId);
             travelCodeList.add(travelCode);
         }
         return travelCodeList;
@@ -69,7 +69,7 @@ public class StubProductAdapter implements ProductAdapter {
         Random rand = new Random();
         Integer randomId = rand.nextInt(50);
         randomId += 1;
-        TravelCode travelCode = new TravelCode(randomId, randomId, travelCodeName);
+        TravelCode travelCode = new TravelCode(randomId, travelCodeName);
         return travelCode;
     }
 }

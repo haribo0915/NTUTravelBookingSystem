@@ -48,7 +48,7 @@ public class JDBCProductAdapter implements ProductAdapter {
     			throw new EntryNotFoundException("Product not found!");
     		}
             Integer product_id = rs.getInt("id");
-           	Integer travel_code_id=rs.getInt("travel_code_id");
+           	Integer travel_code=rs.getInt("travel_code");
            	String title =rs.getString("title");
            	String product_key=rs.getString("product_key");
            	Integer price=rs.getInt("price");
@@ -57,7 +57,7 @@ public class JDBCProductAdapter implements ProductAdapter {
            	Integer lower_bound=rs.getInt("lower_bound");
            	Integer upper_bound=rs.getInt("upper_bound");
 
-           	return new Product(product_id, travel_code_id,title,product_key,price,start,end, lower_bound,upper_bound);         
+           	return new Product(product_id, travel_code,title,product_key,price,start,end, lower_bound,upper_bound);         
         }catch (Exception ex) {
     		System.out.println(ex.getMessage());
     		return new Product();
@@ -79,7 +79,7 @@ public class JDBCProductAdapter implements ProductAdapter {
     		} 
     		do {
     			Integer product_id = rs.getInt("id");
-    			Integer travel_code_id=rs.getInt("travel_code_id");
+    			Integer travel_code=rs.getInt("travel_code");
     			String title =rs.getString("title");
     			String product_key=rs.getString("product_key");
     			Integer price=rs.getInt("price");
@@ -87,12 +87,12 @@ public class JDBCProductAdapter implements ProductAdapter {
     			Timestamp end = Timestamp.valueOf(sdf.format(rs.getTimestamp("end_date")));
     			Integer lower_bound=rs.getInt("lower_bound");
     			Integer upper_bound=rs.getInt("upper_bound");       
-    			productList.add(new Product(product_id, travel_code_id,title,product_key,price,start,end, lower_bound,upper_bound));
+    			productList.add(new Product(product_id, travel_code,title,product_key,price,start,end, lower_bound,upper_bound));
     		}
     		while(rs.next());
             if (travelCode != null) {
                 productList = productList.stream()
-                                    .filter((Product product) -> (product.getTravelCode().equals(travelCode.getId())))
+                                    .filter((Product product) -> (product.getTravelCode().equals(travelCode.getTravelCode())))
                                     .collect(Collectors.toList());
             }
             if (startDate != null) {
@@ -117,11 +117,10 @@ public class JDBCProductAdapter implements ProductAdapter {
     			throw new EntryNotFoundException("Product not found!");
     		}  
     		do {
-    			Integer travel_code_id=rs.getInt("id");
     			Integer travel_code =rs.getInt("travel_code");
     			String travel_code_name=rs.getString("travel_code_name");
            	
-    			travelCodeList.add(new TravelCode(travel_code_id, travel_code, travel_code_name));
+    			travelCodeList.add(new TravelCode(travel_code, travel_code_name));
     		}
     		while(rs.next());
     		
@@ -140,11 +139,10 @@ public class JDBCProductAdapter implements ProductAdapter {
     		if (rs.next() == false) {
     			throw new EntryNotFoundException("Product not found!");
     		}
-    		Integer travel_code_id=rs.getInt("id");
     		Integer travel_code =rs.getInt("travel_code");
     		String travel_code_name=rs.getString("travel_code_name");
            	
-    		return(new TravelCode(travel_code_id, travel_code, travel_code_name));
+    		return(new TravelCode(travel_code, travel_code_name));
     		
         }catch (Exception ex) {
     		System.out.println(ex.getMessage());
