@@ -6,4 +6,3 @@ create table travel_code
 	constraint travel_code_pk
 		primary key (id)
 );
-#System.out.println("1");

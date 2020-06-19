@@ -13,4 +13,3 @@ create table product
 	constraint product_pk
 		primary key (id)
 );
-(1, "VDR0000007686", 155900, 2020-03-12, 2020-03-21, 16, 16, "mm");
