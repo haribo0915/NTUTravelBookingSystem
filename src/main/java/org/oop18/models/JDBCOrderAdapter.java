@@ -1,6 +1,7 @@
 package org.oop18.models;
 
 import org.oop18.entities.Order;
+import org.oop18.exceptions.CreateException;
 import org.oop18.exceptions.EntryExistsException;
 import org.oop18.exceptions.EntryNotFoundException;
 import org.oop18.exceptions.UpdateException;
@@ -45,70 +46,45 @@ public class JDBCOrderAdapter implements OrderAdapter {
     */
     public Order createOrder(Order order) throws CreateException {
         /*
-            Order instance variable
-                this.id = id;
-                this.userId = userId;
-                this.productId = productId;
-                this.adultCount = adultCount;
-                this.childrenCount = childrenCount;
-                this.totalPrice = totalPrice;
-                this.createdTime = createdTime;
+            order.getId()null
+            order.getTotalPrice() : calculated
         */
         try{
-            System.out.println("my create order");
-            // find valid user id
-            /*
-            rs = st.executeQuery( String.format("SELECT id from User WHERE id=%d"), order.getUserId() );
-            rs.next();
-            if( rs.getInt("id") != order.getUserId() ) 
-                throw new CreateException("Invalid User ID");
-            */
-
-            // check product id, keep price
             // calculate and check # of people
-            /*
-            Integer product_price = 0;
-            Integet min_people = 0;
-            Integet max_people = 0;
-            rs = st.executeQuery( String.format("SELECT * from product WHERE id=%d"), order.getProductId() );
+            Integer min_people = 0;
+            Integer max_people = 0;
+            rs = st.executeQuery( String.format("SELECT * from product WHERE id=%d", order.getProductId()));
             rs.next();
             if( rs.getInt("id") != order.getProductId() ) 
                 throw new CreateException("Invalid Product ID");
-            product_price = rs.getInt("price");
             min_people = rs.getInt("lower_bound");
             max_people = rs.getInt("upper_bound");
 
+            // calculate and check # of people
             Integer sum = 0;
-            rs = st.executeQuery( String.format("SELECT SUM(adult_count) FROM `order` WHERE product_id=%d"), order.getProductId() );
-            rs.next(); sum += rs.getInt();
-            rs = st.executeQuery( String.format("SELECT SUM(children_count) FROM `order` WHERE product_id=%d"), order.getProductId() );
-            rs.next(); sum += rs.getInt();
+            rs = st.executeQuery( String.format("SELECT SUM(adult_count) FROM `order` WHERE product_id=%d", order.getProductId()));
+            rs.next(); sum += rs.getInt("SUM(adult_count)");
+            rs = st.executeQuery( String.format("SELECT SUM(children_count) FROM `order` WHERE product_id=%d", order.getProductId()));
+            rs.next(); sum += rs.getInt("SUM(children_count)");
 
-            if( (sum+order.get))
-            */
-
-
+            if( (sum+order.getAdultCount()+order.getChildrenCount()) < min_people )
+                throw new CreateException( String.format("This trip requires at least %d people. An order of %d people is placed. Currently registered: %d.", min_people, order.getAdultCount()+order.getChildrenCount(), sum));
+            if( (sum+order.getAdultCount()+order.getChildrenCount()) > min_people )
+                throw new CreateException( String.format("This trip handles at most %d people. An order of %d people is placed. Currently registered: %d.", max_people, order.getAdultCount()+order.getChildrenCount(), sum));
+            
             // create order id : append to `order` table
             rs = st.executeQuery("SELECT COUNT(*) FROM `order`");
             rs.next();
             order.setId(rs.getInt("COUNT(*)")+1); // after last one
 
-            // calculate price
-            //order.setTotalPrice( (order.getAdultCount()+order.getChildrenCount())* );
-
-            // create time stamp
-            LocalDateTime now = LocalDateTime.now();
-            Timestamp timestamp = Timestamp.valueOf(now);
-            order.setCreatedTime(timestamp);
-
             //add to database
             st.executeUpdate( String.format("INSERT INTO `order` VALUES (\"%d\", \"%s\", \"%s\", \"%d\", \"%d\", \"%d\", \"%s\")", 
                 order.getId(), order.getUserId(), order.getProductId(), 
-                order.getAdultCount(), order.getChildrenCount(), order.getTotalPrice(), order.getCreatedTime() ));
+                order.getAdultCount(), order.getChildrenCount(), order.getTotalPrice(), order.getCreatedTime() ));        
 
             return order;
         }
-        catch(Exception e){ throw new UpdateException(e.getMessage());}
+        catch(Exception e){ throw new CreateException(e.getMessage());}
     }
 
     @Override
