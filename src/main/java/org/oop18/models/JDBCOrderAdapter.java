@@ -80,8 +80,6 @@ public class JDBCOrderAdapter implements OrderAdapter {
             // cannot make for incoming 10 day
             long oneDay = 1 * 24 * 60 * 60 * 1000;
             Timestamp deadline = new Timestamp(start_date.getTime() - 10*oneDay);
-            System.out.println("start_date:"+start_date);
-            System.out.println("deadline:"+deadline);
             if( (order.getCreatedTime()).after(deadline) )
                 throw new CreateException("Cannot place orders for incoming 10 days.");
             
