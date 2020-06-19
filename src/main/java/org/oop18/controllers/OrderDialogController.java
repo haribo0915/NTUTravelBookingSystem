@@ -82,6 +82,8 @@ public class OrderDialogController implements Initializable {
             stage.close();
         } catch (CreateException e) {
             loadErrorBoxView((ActionEvent) event, e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
