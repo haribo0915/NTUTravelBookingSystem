@@ -68,9 +68,9 @@ public class JDBCOrderAdapter implements OrderAdapter {
             rs.next(); sum += rs.getInt("SUM(children_count)");
 
             if( (sum+order.getAdultCount()+order.getChildrenCount()) < min_people )
-                throw new CreateException( String.format("This trip requires at least %d people. An order of %d people is placed. Currently registered: %d.", min_people, order.getAdultCount()+order.getChildrenCount(), sum));
+                throw new CreateException( String.format("This trip requires at least %d people.\nAn order of %d people is placed.\nCurrently registered: %d.", min_people, order.getAdultCount()+order.getChildrenCount(), sum));
             if( (sum+order.getAdultCount()+order.getChildrenCount()) > min_people )
-                throw new CreateException( String.format("This trip handles at most %d people. An order of %d people is placed. Currently registered: %d.", max_people, order.getAdultCount()+order.getChildrenCount(), sum));
+                throw new CreateException( String.format("This trip handles at most %d people.\nAn order of %d people is placed.\nCurrently registered: %d.", max_people, order.getAdultCount()+order.getChildrenCount(), sum));
             
             // create order id : append to `order` table
             rs = st.executeQuery("SELECT COUNT(*) FROM `order`");
