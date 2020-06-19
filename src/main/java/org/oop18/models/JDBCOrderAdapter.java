@@ -71,9 +71,9 @@ public class JDBCOrderAdapter implements OrderAdapter {
             if( order.getChildrenCount() < 0 )
                 throw new CreateException("Number of Children needs to be non-negative.");
             // lower / upper bound
-            if( (sum+order.getAdultCount()+order.getChildrenCount()) < min_people )
-                throw new CreateException( String.format("This trip requires at least %d people.\nAn order of %d people is placed.\nCurrently registered: %d.", min_people, order.getAdultCount()+order.getChildrenCount(), sum));
-            if( (sum+order.getAdultCount()+order.getChildrenCount()) > min_people )
+            //if( (sum+order.getAdultCount()+order.getChildrenCount()) < min_people )
+               // throw new CreateException( String.format("This trip requires at least %d people.\nAn order of %d people is placed.\nCurrently registered: %d.", min_people, order.getAdultCount()+order.getChildrenCount(), sum));
+            if( (sum+order.getAdultCount()+order.getChildrenCount()) > max_people )
                 throw new CreateException( String.format("This trip handles at most %d people.\nAn order of %d people is placed.\nCurrently registered: %d.", max_people, order.getAdultCount()+order.getChildrenCount(), sum));
 
             // cannot make for incoming 10 day
@@ -120,6 +120,9 @@ public class JDBCOrderAdapter implements OrderAdapter {
     			throw new EntryNotFoundException("Order not found!");
     		}
     		
+    		Integer originalAdultCount = rs.getInt("adult_count");
+    		Integer originalChildrenCount = rs.getInt("children_count");
+    		
     		//Query with product ID
 			query = String.format("SELECT * FROM `product` WHERE `id` = \'%d\'", order.getProductId());
 			rs = st.executeQuery(query);
@@ -133,6 +136,28 @@ public class JDBCOrderAdapter implements OrderAdapter {
 			if (ChronoUnit.DAYS.between(today, departure) < 10 ) {
 				throw new UpdateException("You can only modify orders 10 days before departure!");
 			}
+			
+            // calculate and check # of people
+            if( rs.getInt("id") != order.getProductId() ) 
+                throw new UpdateException("Invalid Product ID");
+            
+            Integer max_people = rs.getInt("upper_bound");
+
+            Integer sum = 0;
+            rs = st.executeQuery( String.format("SELECT SUM(adult_count) FROM `order` WHERE product_id=%d", order.getProductId()));
+            rs.next(); sum += rs.getInt("SUM(adult_count)");
+            rs = st.executeQuery( String.format("SELECT SUM(children_count) FROM `order` WHERE product_id=%d", order.getProductId()));
+            rs.next(); sum += rs.getInt("SUM(children_count)");
+
+            // non-negative
+            if( order.getAdultCount() < 0 )
+                throw new UpdateException("Number of Adult needs to be non-negative.");
+            if( order.getChildrenCount() < 0 )
+                throw new UpdateException("Number of Children needs to be non-negative.");
+            
+            // upper bound
+            if( (sum+order.getAdultCount()+order.getChildrenCount()-originalAdultCount-originalChildrenCount) > max_people )
+                throw new UpdateException( String.format("This trip handles at most %d people.\nAn order of %d people is placed.\nCurrently registered: %d.", max_people, order.getAdultCount()+order.getChildrenCount(), sum));
 			
 			//update order
 			query = String.format("UPDATE `order` SET `adult_count` = \'%d\', `children_count` = \'%d\' WHERE (`id` = \'%d\')", order.getAdultCount(), order.getChildrenCount(), order.getId());
