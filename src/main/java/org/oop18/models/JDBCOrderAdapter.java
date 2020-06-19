@@ -46,7 +46,71 @@ public class JDBCOrderAdapter implements OrderAdapter {
     * @return order
     */
     public Order createOrder(Order order) throws CreateException {
-        return null;
+        /*
+            Order instance variable
+                this.id = id;
+                this.userId = userId;
+                this.productId = productId;
+                this.adultCount = adultCount;
+                this.childrenCount = childrenCount;
+                this.totalPrice = totalPrice;
+                this.createdTime = createdTime;
+        */
+        try{
+            System.out.println("my create order");
+            // find valid user id
+            /*
+            rs = st.executeQuery( String.format("SELECT id from User WHERE id=%d"), order.getUserId() );
+            rs.next();
+            if( rs.getInt("id") != order.getUserId() ) 
+                throw new CreateException("Invalid User ID");
+            */
+
+            // check product id, keep price
+            // calculate and check # of people
+            /*
+            Integer product_price = 0;
+            Integet min_people = 0;
+            Integet max_people = 0;
+            rs = st.executeQuery( String.format("SELECT * from product WHERE id=%d"), order.getProductId() );
+            rs.next();
+            if( rs.getInt("id") != order.getProductId() ) 
+                throw new CreateException("Invalid Product ID");
+            product_price = rs.getInt("price");
+            min_people = rs.getInt("lower_bound");
+            max_people = rs.getInt("upper_bound");
+
+            Integer sum = 0;
+            rs = st.executeQuery( String.format("SELECT SUM(adult_count) FROM `order` WHERE product_id=%d"), order.getProductId() );
+            rs.next(); sum += rs.getInt();
+            rs = st.executeQuery( String.format("SELECT SUM(children_count) FROM `order` WHERE product_id=%d"), order.getProductId() );
+            rs.next(); sum += rs.getInt();
+
+            if( (sum+order.get))
+            */
+
+
+            // create order id : append to `order` table
+            rs = st.executeQuery("SELECT COUNT(*) FROM `order`");
+            rs.next();
+            order.setId(rs.getInt("COUNT(*)")+1); // after last one
+
+            // calculate price
+            //order.setTotalPrice( (order.getAdultCount()+order.getChildrenCount())* );
+
+            // create time stamp
+            LocalDateTime now = LocalDateTime.now();
+            Timestamp timestamp = Timestamp.valueOf(now);
+            order.setCreatedTime(timestamp);
+
+            //add to database
+            st.executeUpdate( String.format("INSERT INTO `order` VALUES (\"%d\", \"%s\", \"%s\", \"%d\", \"%d\", \"%d\", \"%s\")", 
+                order.getId(), order.getUserId(), order.getProductId(), 
+                order.getAdultCount(), order.getChildrenCount(), order.getTotalPrice(), order.getCreatedTime() ));
+
+            return order;
+        }
+        catch(Exception e){ throw new UpdateException(e.getMessage());}
     }
 
     @Override
@@ -100,7 +164,7 @@ public class JDBCOrderAdapter implements OrderAdapter {
     		return new Order(id, userId, productId, adultCount, childrenCount, totalPrice, createdTime);
     	}
     	catch (Exception ex) {
-    		throw new UpdateException(ex.getMessage());
+    		throw new CreateException(ex.getMessage());
     	}
     }
 
