@@ -1,5 +1,6 @@
 package org.oop18.controllers;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -27,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
 
 /**
  * @author - Haribo
@@ -36,6 +38,7 @@ public class TravelItineraryListController implements Initializable {
     private ProductAdapter productAdapter;
     private OrderAdapterFactory orderAdapterFactory;
     private User currentUser;
+    private ExecutorService cachedThreadPool = SingletonCachedThreadPool.getInstance();
 
     @FXML
     private ComboBox<String> travelCodeComboBox;
@@ -117,30 +120,35 @@ public class TravelItineraryListController implements Initializable {
     }
 
     public void queryProductsHandler(Event event) {
-        List<Product> productList = new ArrayList<>();
-        try {
+        cachedThreadPool.execute(() -> {
             String travelCodeName = travelCodeComboBox.getValue();
             String localDateStr = datePicker.getEditor().getText();
-            DateFormat formatter = new SimpleDateFormat("yyyy/M/d");
 
-            TravelCode travelCode = (travelCodeName == null || travelCodeName.equals(""))? null : productAdapter.queryTravelCode(travelCodeName);
-            Timestamp startDate = (localDateStr == null || localDateStr.equals(""))? null : new Timestamp(formatter.parse(localDateStr).getTime());
+            List<Product> productList = new ArrayList<>();
+            try {
+                DateFormat formatter = new SimpleDateFormat("yyyy/M/d");
 
-            productList = productAdapter.queryProducts(travelCode, startDate);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            refreshProductTable(productList);
-        }
+                TravelCode travelCode = (travelCodeName == null || travelCodeName.equals(""))? null : productAdapter.queryTravelCode(travelCodeName);
+                Timestamp startDate = (localDateStr == null || localDateStr.equals(""))? null : new Timestamp(formatter.parse(localDateStr).getTime());
+
+                productList = productAdapter.queryProducts(travelCode, startDate);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                refreshProductTable(productList);
+            }
+        });
     }
 
     public void createOrderHandler(Event event) {
-        try {
-            Product selectedProduct = productTable.getSelectionModel().getSelectedItem();
-            loadOrderDialogView(event, selectedProduct);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        cachedThreadPool.execute(() -> {
+            try {
+                Product selectedProduct = productTable.getSelectionModel().getSelectedItem();
+                Platform.runLater(() -> loadOrderDialogView(event, selectedProduct));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void loadOrderDialogView(Event event, Product selectedProduct) {
@@ -163,11 +171,13 @@ public class TravelItineraryListController implements Initializable {
     }
 
     public void queryUserOrdersHandler(Event event) {
-        try {
-            loadUserOrderListView(event);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        cachedThreadPool.execute(() -> {
+            try {
+                Platform.runLater(() -> loadUserOrderListView(event));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void loadUserOrderListView(Event event) {
