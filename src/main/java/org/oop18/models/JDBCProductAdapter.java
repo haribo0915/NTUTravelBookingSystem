@@ -14,11 +14,13 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import java.time.format.DateTimeFormatter;
 
 public class JDBCProductAdapter implements ProductAdapter {
 
@@ -48,6 +50,7 @@ public class JDBCProductAdapter implements ProductAdapter {
         try {
             String query = String.format("SELECT * from product WHERE id=%d",id);
             rs = st.executeQuery(query);
+            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
     		if (rs.next() == false) {
     			throw new QueryException("Product not found!");
     		}
@@ -56,8 +59,8 @@ public class JDBCProductAdapter implements ProductAdapter {
            	String title =rs.getString("title");
            	String product_key=rs.getString("product_key");
            	Integer price=rs.getInt("price");
-           	Timestamp start = rs.getTimestamp("start_date");
-           	Timestamp end = rs.getTimestamp("end_date");
+			Timestamp start = Timestamp.valueOf(sdf.format(rs.getTimestamp("start_date")));
+			Timestamp end = Timestamp.valueOf(sdf.format(rs.getTimestamp("end_date")));
            	Integer lower_bound=rs.getInt("lower_bound");
            	Integer upper_bound=rs.getInt("upper_bound");
 
@@ -73,23 +76,23 @@ public class JDBCProductAdapter implements ProductAdapter {
     @Override
     public List<Product> queryProducts(TravelCode travelCode, Timestamp startDate) throws QueryException {
     	List<Product> productList = new ArrayList<>();
+    	DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
         try {
             String query = String.format("SELECT * from product");
             rs = st.executeQuery(query);
     		if (rs.next() == false) {
     			throw new QueryException("Product not found!");
-    		}  
+    		} 
     		do {
     			Integer product_id = rs.getInt("id");
     			Integer travel_code_id=rs.getInt("travel_code_id");
     			String title =rs.getString("title");
     			String product_key=rs.getString("product_key");
     			Integer price=rs.getInt("price");
-    			Timestamp start = rs.getTimestamp("start_date");
-    			Timestamp end = rs.getTimestamp("end_date");
+    			Timestamp start = Timestamp.valueOf(sdf.format(rs.getTimestamp("start_date")));
+    			Timestamp end = Timestamp.valueOf(sdf.format(rs.getTimestamp("end_date")));
     			Integer lower_bound=rs.getInt("lower_bound");
-    			Integer upper_bound=rs.getInt("upper_bound");
-           	
+    			Integer upper_bound=rs.getInt("upper_bound");       
     			productList.add(new Product(product_id, travel_code_id,title,product_key,price,start,end, lower_bound,upper_bound));
     		}
     		while(rs.next());
@@ -103,8 +106,7 @@ public class JDBCProductAdapter implements ProductAdapter {
                                     .filter((Product product) -> (product.getStartDate().equals(startDate)))
                                     .collect(Collectors.toList());
             }
-
-            return productList; 
+            return productList;
         }catch (Exception ex) {
     		throw new QueryException(ex.getMessage());
     	}    	
@@ -137,7 +139,7 @@ public class JDBCProductAdapter implements ProductAdapter {
     @Override
     public TravelCode queryTravelCode(String travelCodeName) throws QueryException {
         try{
-            String query = String.format("SELECT * from travel_code where travel_code_name=%s",travelCodeName);
+            String query = String.format("SELECT * from travel_code where travel_code_name=\"%s\"",travelCodeName);
             rs = st.executeQuery(query);
     		if (rs.next() == false) {
     			throw new QueryException("Product not found!");
