@@ -90,6 +90,9 @@ public class JDBCProductAdapter implements ProductAdapter {
     			productList.add(new Product(product_id, travel_code,title,product_key,price,start,end, lower_bound,upper_bound));
     		}
     		while(rs.next());
+            productList = productList.stream()
+                    .filter((Product product) -> (product.getStartDate().after(new Timestamp(System.currentTimeMillis()))))
+                    .collect(Collectors.toList());
             if (travelCode != null) {
                 productList = productList.stream()
                                     .filter((Product product) -> (product.getTravelCode().equals(travelCode.getTravelCode())))
