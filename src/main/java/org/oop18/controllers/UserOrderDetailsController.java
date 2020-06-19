@@ -14,7 +14,6 @@ import org.oop18.models.OrderAdapterFactory;
 import org.oop18.models.ProductAdapter;
 import org.oop18.models.ProductAdapterFactory;
 
-import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;

@@ -1,6 +1,5 @@
 package org.oop18.models;
 
-import javafx.scene.image.Image;
 import org.oop18.entities.Product;
 import org.oop18.entities.TravelCode;
 import org.oop18.exceptions.QueryException;

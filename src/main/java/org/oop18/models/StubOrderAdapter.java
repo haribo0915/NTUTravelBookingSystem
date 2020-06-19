@@ -1,7 +1,6 @@
 package org.oop18.models;
 
 import org.oop18.entities.Order;
-import org.oop18.entities.Product;
 import org.oop18.exceptions.CreateException;
 import org.oop18.exceptions.DeleteException;
 import org.oop18.exceptions.QueryException;

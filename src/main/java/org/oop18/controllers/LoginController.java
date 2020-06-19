@@ -1,17 +1,20 @@
 package org.oop18.controllers;
 
-import javafx.event.*;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.fxml.FXML;
-import javafx.stage.Modality;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.oop18.entities.User;
 import org.oop18.exceptions.QueryException;
-import org.oop18.models.*;
+import org.oop18.models.OrderAdapterFactory;
+import org.oop18.models.ProductAdapterFactory;
+import org.oop18.models.UserAdapter;
+import org.oop18.models.UserAdapterFactory;
 
 import java.io.IOException;
 

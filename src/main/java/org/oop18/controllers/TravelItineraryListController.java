@@ -12,28 +12,21 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.oop18.entities.Order;
 import org.oop18.entities.Product;
 import org.oop18.entities.TravelCode;
 import org.oop18.entities.User;
-import org.oop18.models.OrderAdapter;
 import org.oop18.models.OrderAdapterFactory;
 import org.oop18.models.ProductAdapter;
 import org.oop18.models.ProductAdapterFactory;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 /**
  * @author - Haribo
