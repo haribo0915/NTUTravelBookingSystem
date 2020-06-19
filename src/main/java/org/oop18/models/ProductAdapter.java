@@ -2,16 +2,16 @@ package org.oop18.models;
 
 import org.oop18.entities.Product;
 import org.oop18.entities.TravelCode;
-import org.oop18.exceptions.QueryException;
+import org.oop18.exceptions.EntryNotFoundException;
 
 import java.sql.Timestamp;
 import java.util.List;
 
 
 public interface ProductAdapter {
-    Product queryProduct(Integer id) throws QueryException;
-    List<Product> queryProducts(TravelCode travelCode, Timestamp startDate) throws QueryException;
-    List<TravelCode> queryTravelCodes() throws QueryException;
-    TravelCode queryTravelCode(String travelCodeName) throws QueryException;
+    Product queryProduct(Integer id) throws EntryNotFoundException;
+    List<Product> queryProducts(TravelCode travelCode, Timestamp startDate) throws EntryNotFoundException;
+    List<TravelCode> queryTravelCodes() throws EntryNotFoundException;
+    TravelCode queryTravelCode(String travelCodeName) throws EntryNotFoundException;
 
 }
