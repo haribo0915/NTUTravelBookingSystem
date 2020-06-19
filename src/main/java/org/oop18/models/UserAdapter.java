@@ -1,7 +1,10 @@
 package org.oop18.models;
 
-import org.oop18.exceptions.*;
 import org.oop18.entities.User;
+import org.oop18.exceptions.CreateException;
+import org.oop18.exceptions.DeleteException;
+import org.oop18.exceptions.QueryException;
+import org.oop18.exceptions.UpdateException;
 
 
 public interface UserAdapter {

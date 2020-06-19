@@ -1,19 +1,25 @@
 package org.oop18.controllers;
 
-import javafx.event.*;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.fxml.FXML;
-import javafx.stage.Modality;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.oop18.entities.User;
 import org.oop18.exceptions.QueryException;
-import org.oop18.models.*;
+import org.oop18.models.OrderAdapterFactory;
+import org.oop18.models.ProductAdapterFactory;
+import org.oop18.models.UserAdapter;
+import org.oop18.models.UserAdapterFactory;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author - Haribo
@@ -22,6 +28,7 @@ public class LoginController {
     private UserAdapterFactory userAdapterFactory;
     private ProductAdapterFactory productAdapterFactory;
     private OrderAdapterFactory orderAdapterFactory;
+    private ExecutorService cachedThreadPool = SingletonCachedThreadPool.getInstance();
 
     @FXML
     private TextField userName;
@@ -44,16 +51,15 @@ public class LoginController {
     }
 
     public void loginHandler(ActionEvent event) {
-
-        try {
-            UserAdapter userAdapter = userAdapterFactory.create();
-            User currentUser = userAdapter.queryUser(userName.getText(), password.getText());
-            //User currentUser = new User(1, "admin", "admin");
-            System.out.println("login success!!");
-            loadTravelItineraryListView(event, currentUser);
-        } catch (QueryException e) {
-            System.out.println(e.getMessage());
-        }
+        cachedThreadPool.execute(() -> {
+            try {
+                UserAdapter userAdapter = userAdapterFactory.create();
+                User currentUser = userAdapter.queryUser(userName.getText(), password.getText());
+                Platform.runLater(() -> loadTravelItineraryListView(event, currentUser));
+            } catch (QueryException e) {
+                System.out.println(e.getMessage());
+            }
+        });
     }
 
     private void loadTravelItineraryListView(ActionEvent event, User currentUser) {
@@ -75,11 +81,13 @@ public class LoginController {
     }
 
     public void registerHandler(ActionEvent event) {
-        try {
-            loadRegisterView(event);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        cachedThreadPool.execute(() -> {
+            try {
+                Platform.runLater(() -> loadRegisterView(event));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void loadRegisterView(ActionEvent event) {

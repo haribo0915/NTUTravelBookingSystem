@@ -1,16 +1,12 @@
 package org.oop18.models;
 
+import org.oop18.entities.User;
+import org.oop18.exceptions.*;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
-import org.oop18.entities.User;
-import org.oop18.exceptions.CreateException;
-import org.oop18.exceptions.DBConnectException;
-import org.oop18.exceptions.DeleteException;
-import org.oop18.exceptions.QueryException;
-import org.oop18.exceptions.UpdateException;
 
 public class JDBCUserAdapter implements UserAdapter {
 	

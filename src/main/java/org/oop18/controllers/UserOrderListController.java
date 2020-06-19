@@ -1,8 +1,8 @@
 package org.oop18.controllers;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +29,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
 
 /**
  * @author - Haribo
@@ -39,6 +40,7 @@ public class UserOrderListController implements Initializable {
     private OrderAdapterFactory orderAdapterFactory;
     private OrderAdapter orderAdapter;
     private User currentUser;
+    private ExecutorService cachedThreadPool = SingletonCachedThreadPool.getInstance();
 
     @FXML
     private Button querySelectedUserOrderBtn;
@@ -97,12 +99,14 @@ public class UserOrderListController implements Initializable {
     }
 
     public void querySelectedUserOrderHandler(Event event) {
-        try {
-            Order selectedUserOrder = orderTable.getSelectionModel().getSelectedItem();
-            loadUserOrderDetailsView(event, selectedUserOrder);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        cachedThreadPool.execute(() -> {
+            try {
+                Order selectedUserOrder = orderTable.getSelectionModel().getSelectedItem();
+                Platform.runLater(() -> loadUserOrderDetailsView(event, selectedUserOrder));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void loadUserOrderDetailsView(Event event, Order selectedUserOrder) {
@@ -125,16 +129,18 @@ public class UserOrderListController implements Initializable {
     }
 
     public void deleteSelectedUserOrderHandler(Event event) {
-        List<Order> orderList = new ArrayList<>();
-        try {
-            Order selectedOrder = orderTable.getSelectionModel().getSelectedItem();
-            selectedOrder = orderAdapter.deleteOrder(selectedOrder);
+        cachedThreadPool.execute(() -> {
+            List<Order> orderList = new ArrayList<>();
+            try {
+                Order selectedOrder = orderTable.getSelectionModel().getSelectedItem();
+                selectedOrder = orderAdapter.deleteOrder(selectedOrder);
 
-            orderList = orderAdapter.queryOrders(currentUser.getId());
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            refreshOrderTable(orderList);
-        }
+                orderList = orderAdapter.queryOrders(currentUser.getId());
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                refreshOrderTable(orderList);
+            }
+        });
     }
 }
