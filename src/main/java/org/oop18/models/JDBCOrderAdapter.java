@@ -9,6 +9,7 @@ import org.oop18.exceptions.UpdateException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -106,6 +107,14 @@ public class JDBCOrderAdapter implements OrderAdapter {
     * @return order
     */
     public Order updateOrder(Order order) throws UpdateException, EntryNotFoundException {
+		Integer id = null;
+		Integer userId = null;
+		Integer productId = null;
+		Integer adultCount = null;
+		Integer childrenCount = null;
+		Integer totalPrice = null;
+		Timestamp createdTime = null;
+    	
     	try {
     		// Query with order ID
     		String query = String.format("SELECT * FROM `order` WHERE `id` = \'%d\'", order.getId());
@@ -139,20 +148,19 @@ public class JDBCOrderAdapter implements OrderAdapter {
     			throw new EntryNotFoundException("Order not found!");
     		}
 			
-    		Integer id = rs.getInt("id");
-    		Integer userId = rs.getInt("user_id");
-    		Integer productId = rs.getInt("product_id");
-    		Integer adultCount = rs.getInt("adult_count");
-    		Integer childrenCount = rs.getInt("children_count");
-    		Integer totalPrice = rs.getInt("total_price");
-    		Timestamp createdTime = rs.getTimestamp("created_time");
-    		
-    		return new Order(id, userId, productId, adultCount, childrenCount, totalPrice, createdTime);
+    		id = rs.getInt("id");
+    		userId = rs.getInt("user_id");
+    		productId = rs.getInt("product_id");
+    		adultCount = rs.getInt("adult_count");
+    		childrenCount = rs.getInt("children_count");
+    		totalPrice = rs.getInt("total_price");
+    		createdTime = rs.getTimestamp("created_time");
     	}
-    	catch (Exception ex) {
+    	catch (SQLException ex) {
     		System.out.println(ex.getMessage());
-    		return new Order();
     	}
+    	
+    	return new Order(id, userId, productId, adultCount, childrenCount, totalPrice, createdTime);
     }
 
     @Override
@@ -162,6 +170,14 @@ public class JDBCOrderAdapter implements OrderAdapter {
     * @return order
     */
     public Order deleteOrder(Order order) throws EntryNotFoundException {
+		Integer id = null;
+		Integer userId = null;
+		Integer productId = null;
+		Integer adultCount = null;
+		Integer childrenCount = null;
+		Integer totalPrice = null;
+		Timestamp createdTime = null;	
+		
     	try {
             // Query by order id
     		String query = String.format("SELECT * FROM `order` WHERE `id` = \'%d\'", order.getId());
@@ -171,24 +187,22 @@ public class JDBCOrderAdapter implements OrderAdapter {
     			throw new EntryNotFoundException("Order not found");
     		}
     		
-    		Integer id = rs.getInt("id");
-    		Integer userId = rs.getInt("user_id");
-    		Integer productId = rs.getInt("product_id");
-    		Integer adultCount = rs.getInt("adult_count");
-    		Integer childrenCount = rs.getInt("children_count");
-    		Integer totalPrice = rs.getInt("total_price");
-    		Timestamp createdTime = rs.getTimestamp("created_time");		
+    		id = rs.getInt("id");
+    		userId = rs.getInt("user_id");
+    		productId = rs.getInt("product_id");
+    		adultCount = rs.getInt("adult_count");
+    		childrenCount = rs.getInt("children_count");
+    		totalPrice = rs.getInt("total_price");
+    		createdTime = rs.getTimestamp("created_time");		
     		
             // Delete the order
     		query = String.format("DELETE FROM `order` WHERE `id` = \'%d\'", order.getId());
     		st.executeUpdate(query);
-
-    		return new Order(id, userId, productId, adultCount, childrenCount, totalPrice, createdTime);
     	}
-    	catch (Exception ex) {
+    	catch (SQLException ex) {
     		System.out.println(ex.getMessage());
-    		return new Order();
     	}
+    	return new Order(id, userId, productId, adultCount, childrenCount, totalPrice, createdTime);
     }
 
     @Override
@@ -221,14 +235,11 @@ public class JDBCOrderAdapter implements OrderAdapter {
 	    		Timestamp createdTime = rs.getTimestamp("created_time");	
 	    		
 	    		queryResult.add(new Order(id, QuserId, productId, adultCount, childrenCount, totalPrice, createdTime));
-	    		
-    		} while (rs.next());
-    		
-    		return queryResult;	 
+    		} while (rs.next());		 
     	}
     	catch (Exception ex) {
     		System.out.println(ex.getMessage());
-    		return queryResult;
     	}
+    	return queryResult;	
     }
 }

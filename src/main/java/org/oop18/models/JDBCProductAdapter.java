@@ -7,6 +7,7 @@ import org.oop18.exceptions.EntryNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -40,6 +41,16 @@ public class JDBCProductAdapter implements ProductAdapter {
     @Override
     //retrieve data by product id
     public Product queryProduct(Integer id) throws EntryNotFoundException {
+        Integer product_id = null;
+       	Integer travel_code=null;
+       	String title =null;
+       	String product_key=null;
+       	Integer price=null;
+		Timestamp start = null;
+		Timestamp end = null;
+       	Integer lower_bound=null;
+       	Integer upper_bound=null;
+       	
         try {
             String query = String.format("SELECT * from product WHERE id=%d",id);
             rs = st.executeQuery(query);
@@ -47,21 +58,21 @@ public class JDBCProductAdapter implements ProductAdapter {
     		if (rs.next() == false) {
     			throw new EntryNotFoundException("Product not found!");
     		}
-            Integer product_id = rs.getInt("id");
-           	Integer travel_code=rs.getInt("travel_code");
-           	String title =rs.getString("title");
-           	String product_key=rs.getString("product_key");
-           	Integer price=rs.getInt("price");
-			Timestamp start = Timestamp.valueOf(sdf.format(rs.getTimestamp("start_date")));
-			Timestamp end = Timestamp.valueOf(sdf.format(rs.getTimestamp("end_date")));
-           	Integer lower_bound=rs.getInt("lower_bound");
-           	Integer upper_bound=rs.getInt("upper_bound");
+            product_id = rs.getInt("id");
+           	travel_code=rs.getInt("travel_code");
+           	title =rs.getString("title");
+           	product_key=rs.getString("product_key");
+           	price=rs.getInt("price");
+			start = Timestamp.valueOf(sdf.format(rs.getTimestamp("start_date")));
+			end = Timestamp.valueOf(sdf.format(rs.getTimestamp("end_date")));
+            lower_bound=rs.getInt("lower_bound");
+           	upper_bound=rs.getInt("upper_bound");
 
-           	return new Product(product_id, travel_code,title,product_key,price,start,end, lower_bound,upper_bound);         
-        }catch (Exception ex) {
-    		System.out.println(ex.getMessage());
-    		return new Product();
+           	         
+        }catch (SQLException ex) {
+        	System.out.println(ex.getMessage());
     	}
+        return new Product(product_id, travel_code,title,product_key,price,start,end, lower_bound,upper_bound);
     }
 
 
@@ -90,6 +101,9 @@ public class JDBCProductAdapter implements ProductAdapter {
     			productList.add(new Product(product_id, travel_code,title,product_key,price,start,end, lower_bound,upper_bound));
     		}
     		while(rs.next());
+            productList = productList.stream()
+                    .filter((Product product) -> (product.getStartDate().after(new Timestamp(System.currentTimeMillis()))))
+                    .collect(Collectors.toList());
             if (travelCode != null) {
                 productList = productList.stream()
                                     .filter((Product product) -> (product.getTravelCode().equals(travelCode.getTravelCode())))
@@ -100,11 +114,10 @@ public class JDBCProductAdapter implements ProductAdapter {
                                     .filter((Product product) -> (product.getStartDate().equals(startDate)))
                                     .collect(Collectors.toList());
             }
-            return productList;
-        }catch (Exception ex) {
-    		System.out.println(ex.getMessage());
-    		return productList;
-    	}    	
+        }catch (SQLException ex) {
+        	System.out.println(ex.getMessage());		
+    	}
+        return productList;
     }
 
     @Override
@@ -123,30 +136,30 @@ public class JDBCProductAdapter implements ProductAdapter {
     			travelCodeList.add(new TravelCode(travel_code, travel_code_name));
     		}
     		while(rs.next());
-    		
-    		return travelCodeList;	 
-        }catch (Exception ex) {
-    		System.out.println(ex.getMessage());
-    		return travelCodeList;
-    	} 
+    		 
+        }catch (SQLException ex) {
+        	System.out.println(ex.getMessage());
+    	}
+		return travelCodeList; 
     }
 
     @Override
     public TravelCode queryTravelCode(String travelCodeName) throws EntryNotFoundException {
-        try{
+		Integer travel_code =null;
+		String travel_code_name=null;
+    	
+    	try{
             String query = String.format("SELECT * from travel_code where travel_code_name=\"%s\"",travelCodeName);
             rs = st.executeQuery(query);
     		if (rs.next() == false) {
     			throw new EntryNotFoundException("Product not found!");
     		}
-    		Integer travel_code =rs.getInt("travel_code");
-    		String travel_code_name=rs.getString("travel_code_name");
-           	
-    		return(new TravelCode(travel_code, travel_code_name));
+    		travel_code =rs.getInt("travel_code");
+    		travel_code_name=rs.getString("travel_code_name");	
     		
-        }catch (Exception ex) {
-    		System.out.println(ex.getMessage());
-    		return new TravelCode();
+        }catch (SQLException ex) {
+        	System.out.println(ex.getMessage());
     	}
+        return(new TravelCode(travel_code, travel_code_name));
     }
 }

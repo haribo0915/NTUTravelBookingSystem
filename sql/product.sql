@@ -15,3 +15,4 @@ create table product
 	constraint product_pk
 		primary key (id)
 );
+#insert into product (title, travel_code, product_key, price,start_date, end_date, lower_bound, upper_bound) values ("mata",100,"v1234567",155900,"2020/3/12","2020/3/21",16,16);
