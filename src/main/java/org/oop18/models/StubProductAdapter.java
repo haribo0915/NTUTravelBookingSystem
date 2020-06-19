@@ -2,7 +2,6 @@ package org.oop18.models;
 
 import org.oop18.entities.Product;
 import org.oop18.entities.TravelCode;
-import org.oop18.exceptions.QueryException;
 import org.oop18.exceptions.EntryNotFoundException;
 
 import java.sql.Timestamp;
