@@ -59,8 +59,7 @@ public class JDBCProductAdapter implements ProductAdapter {
 
            	return new Product(product_id, travel_code,title,product_key,price,start,end, lower_bound,upper_bound);         
         }catch (Exception ex) {
-    		System.out.println(ex.getMessage());
-    		return new Product();
+    		throw new EntryNotFoundException(ex.getMessage());
     	}
     }
 
@@ -105,9 +104,8 @@ public class JDBCProductAdapter implements ProductAdapter {
             }
             return productList;
         }catch (Exception ex) {
-    		System.out.println(ex.getMessage());
-    		return productList;
-    	}    	
+    		throw new EntryNotFoundException(ex.getMessage());
+    	}
     }
 
     @Override
@@ -129,8 +127,7 @@ public class JDBCProductAdapter implements ProductAdapter {
     		
     		return travelCodeList;	 
         }catch (Exception ex) {
-    		System.out.println(ex.getMessage());
-    		return travelCodeList;
+    		throw new EntryNotFoundException(ex.getMessage());
     	} 
     }
 
@@ -148,8 +145,7 @@ public class JDBCProductAdapter implements ProductAdapter {
     		return(new TravelCode(travel_code, travel_code_name));
     		
         }catch (Exception ex) {
-    		System.out.println(ex.getMessage());
-    		return new TravelCode();
+    		throw new EntryNotFoundException(ex.getMessage());
     	}
     }
 }
