@@ -51,26 +51,38 @@ public class JDBCOrderAdapter implements OrderAdapter {
         */
         try{
             // calculate and check # of people
-            Integer min_people = 0;
-            Integer max_people = 0;
             rs = st.executeQuery( String.format("SELECT * from product WHERE id=%d", order.getProductId()));
             rs.next();
             if( rs.getInt("id") != order.getProductId() ) 
                 throw new CreateException("Invalid Product ID");
-            min_people = rs.getInt("lower_bound");
-            max_people = rs.getInt("upper_bound");
+            Integer min_people = rs.getInt("lower_bound");
+            Integer max_people = rs.getInt("upper_bound");
+            Timestamp start_date = rs.getTimestamp("start_date");
 
-            // calculate and check # of people
             Integer sum = 0;
             rs = st.executeQuery( String.format("SELECT SUM(adult_count) FROM `order` WHERE product_id=%d", order.getProductId()));
             rs.next(); sum += rs.getInt("SUM(adult_count)");
             rs = st.executeQuery( String.format("SELECT SUM(children_count) FROM `order` WHERE product_id=%d", order.getProductId()));
             rs.next(); sum += rs.getInt("SUM(children_count)");
 
+            // non-negative
+            if( order.getAdultCount() < 0 )
+                throw new CreateException("Number of Adult needs to be non-negative.");
+            if( order.getChildrenCount() < 0 )
+                throw new CreateException("Number of Children needs to be non-negative.");
+            // lower / upper bound
             if( (sum+order.getAdultCount()+order.getChildrenCount()) < min_people )
                 throw new CreateException( String.format("This trip requires at least %d people.\nAn order of %d people is placed.\nCurrently registered: %d.", min_people, order.getAdultCount()+order.getChildrenCount(), sum));
             if( (sum+order.getAdultCount()+order.getChildrenCount()) > min_people )
                 throw new CreateException( String.format("This trip handles at most %d people.\nAn order of %d people is placed.\nCurrently registered: %d.", max_people, order.getAdultCount()+order.getChildrenCount(), sum));
+
+            // cannot make for incoming 10 day
+            long oneDay = 1 * 24 * 60 * 60 * 1000;
+            Timestamp deadline = new Timestamp(start_date.getTime() - 10*oneDay);
+            System.out.println("start_date:"+start_date);
+            System.out.println("deadline:"+deadline);
+            if( (order.getCreatedTime()).after(deadline) )
+                throw new CreateException("Cannot place orders for incoming 10 days.");
             
             // create order id : append to `order` table
             rs = st.executeQuery("SELECT COUNT(*) FROM `order`");
