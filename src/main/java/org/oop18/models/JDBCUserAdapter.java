@@ -40,6 +40,10 @@ public class JDBCUserAdapter implements UserAdapter {
      * @return user
      */
     public User createUser(User user) throws EntryExistsException {	
+    	Integer id = null;
+        String Qaccount = null;
+        String Qpassword = null;
+    	
     	try {
     		// Query account and password from DB
     		String query = String.format("SELECT * FROM User WHERE account = \"%s\" and password = \"%s\"", user.getAccount(), user.getPassword()); 		
@@ -53,10 +57,9 @@ public class JDBCUserAdapter implements UserAdapter {
 				rs = st.executeQuery(query);
 			
 	    		rs.next();
-	            Integer id = rs.getInt("id");
-	            String Qaccount = rs.getString("account");
-	            String Qpassword = rs.getString("password");
-	            return new User(id, Qaccount, Qpassword);
+	            id = rs.getInt("id");
+	            Qaccount = rs.getString("account");
+	            Qpassword = rs.getString("password");
     		}
     		else {
     			throw new EntryExistsException("Account already exists!");
@@ -64,8 +67,8 @@ public class JDBCUserAdapter implements UserAdapter {
     	}
     	catch(SQLException ex) {
     		System.out.println(ex.getMessage());
-    		return new User();
     	}
+    	return new User(id, Qaccount, Qpassword);
     }
 
     @Override
@@ -85,7 +88,11 @@ public class JDBCUserAdapter implements UserAdapter {
      * @return User
      */
     public User deleteUser(Integer userId) throws EntryNotFoundException {
-		try {
+    	Integer id = null;
+        String Qaccount = null;
+        String Qpassword = null;
+        
+    	try {
 			// Query user id from DB
     		String query = String.format("SELECT * FROM User WHERE id = %d", userId);
     		rs = st.executeQuery(query);
@@ -93,20 +100,18 @@ public class JDBCUserAdapter implements UserAdapter {
                 throw new EntryNotFoundException("User not found");
             }
 
-        	Integer id = rs.getInt("id");
-            String Qaccount = rs.getString("account");
-            String Qpassword = rs.getString("password");
+        	id = rs.getInt("id");
+            Qaccount = rs.getString("account");
+            Qpassword = rs.getString("password");
             
             // Delete user form DB
 			query = String.format("DELETE FROM User WHERE id = %d", userId);
 			st.executeUpdate(query);
-			
-			return new User(id, Qaccount, Qpassword);
 		}
 		catch(SQLException ex) {
 			System.out.println(ex.getMessage());
-			return new User();
 		}
+    	return new User(id, Qaccount, Qpassword);
     }
 
     @Override
@@ -116,6 +121,10 @@ public class JDBCUserAdapter implements UserAdapter {
      * @return user
      */
     public User queryUser(String account, String password) throws EntryNotFoundException {
+    	Integer id = null;
+        String Qaccount = null;
+        String Qpassword = null;
+    	
     	try {
     		// Query account and password from DB
     		String query = String.format("SELECT * FROM User WHERE account = \"%s\" and password = \"%s\"", account, password); 		
@@ -126,15 +135,14 @@ public class JDBCUserAdapter implements UserAdapter {
     			throw new EntryNotFoundException("No matched account. Perhaps a wrong account or an incorrect password?");
     		}
     		else {
-            	Integer id = rs.getInt("id");
-                String Qaccount = rs.getString("account");
-                String Qpassword = rs.getString("password");
-                return new User(id, Qaccount, Qpassword);
+            	id = rs.getInt("id");
+                Qaccount = rs.getString("account");
+                Qpassword = rs.getString("password");
     		}
     	}
     	catch(SQLException ex) {
     		System.out.println(ex.getMessage());
-    		return new User();
     	}
+    	return new User(id, Qaccount, Qpassword);
     }
 }
