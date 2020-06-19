@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.oop18.entities.User;
 import org.oop18.exceptions.EntryNotFoundException;
@@ -57,7 +58,7 @@ public class LoginController {
                 User currentUser = userAdapter.queryUser(userName.getText(), password.getText());
                 Platform.runLater(() -> loadTravelItineraryListView(event, currentUser));
             } catch (EntryNotFoundException e) {
-                System.out.println(e.getMessage());
+                Platform.runLater(() -> loadErrorBoxView(event, e.getMessage()));
             }
         });
     }
@@ -99,11 +100,29 @@ public class LoginController {
 
             Parent registerParent = loader.load();
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            //stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(registerParent));
             stage.setTitle("Register");
             stage.sizeToScene();
             stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadErrorBoxView(ActionEvent event, String errorMessage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ErrorBox.fxml"));
+
+            ErrorBoxController errorBoxController = new ErrorBoxController(errorMessage);
+            loader.setController(errorBoxController);
+
+            Parent ErrorBoxParent = loader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Error");
+            stage.setScene(new Scene(ErrorBoxParent));
+            stage.sizeToScene();
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }
