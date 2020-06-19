@@ -2,7 +2,7 @@ package org.oop18.models;
 
 import org.oop18.entities.Product;
 import org.oop18.entities.TravelCode;
-import org.oop18.exceptions.QueryException;
+import org.oop18.exceptions.EntryNotFoundException;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public class StubProductAdapter implements ProductAdapter {
     @Override
-    public Product queryProduct(Integer id) throws QueryException {
+    public Product queryProduct(Integer id) throws EntryNotFoundException {
         Random rand = new Random();
         Integer randomId = rand.nextInt(50);
         randomId += 1;
@@ -24,7 +24,7 @@ public class StubProductAdapter implements ProductAdapter {
     }
 
     @Override
-    public List<Product> queryProducts(TravelCode travelCode, Timestamp startDate) throws QueryException {
+    public List<Product> queryProducts(TravelCode travelCode, Timestamp startDate) throws EntryNotFoundException {
         List<Product> productList = new ArrayList<>();
 
         for (int i = 1; i <= 50; i++) {
@@ -52,7 +52,7 @@ public class StubProductAdapter implements ProductAdapter {
 
 
     @Override
-    public List<TravelCode> queryTravelCodes() throws QueryException {
+    public List<TravelCode> queryTravelCodes() throws EntryNotFoundException {
         List<TravelCode> travelCodeList = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             Random rand = new Random();
@@ -65,7 +65,7 @@ public class StubProductAdapter implements ProductAdapter {
     }
 
     @Override
-    public TravelCode queryTravelCode(String travelCodeName) throws QueryException {
+    public TravelCode queryTravelCode(String travelCodeName) throws EntryNotFoundException {
         Random rand = new Random();
         Integer randomId = rand.nextInt(50);
         randomId += 1;

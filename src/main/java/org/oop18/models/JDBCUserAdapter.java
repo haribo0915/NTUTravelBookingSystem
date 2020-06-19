@@ -1,12 +1,14 @@
 package org.oop18.models;
 
-import org.oop18.entities.User;
-import org.oop18.exceptions.*;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import org.oop18.entities.User;
+import org.oop18.exceptions.EntryExistsException;
+import org.oop18.exceptions.EntryNotFoundException;
+import org.oop18.exceptions.UpdateException;
 
 public class JDBCUserAdapter implements UserAdapter {
 	
@@ -17,7 +19,7 @@ public class JDBCUserAdapter implements UserAdapter {
     /**
      * Establish MySQL database connection when constructed
      */
-    public JDBCUserAdapter() throws DBConnectException {
+    public JDBCUserAdapter() {
         try {
             //Class 的靜態 forName() 方法實現動態加載類別
             Class.forName("com.mysql.jdbc.Driver");
@@ -26,7 +28,7 @@ public class JDBCUserAdapter implements UserAdapter {
             st = con.createStatement();   
         } 
         catch(Exception ex) {
-        	throw new DBConnectException(ex.getMessage());
+        	System.out.println(ex.getMessage());
         }
     }
 	
@@ -36,7 +38,7 @@ public class JDBCUserAdapter implements UserAdapter {
      * @param user
      * @return user
      */
-    public User createUser(User user) throws CreateException {	
+    public User createUser(User user) throws EntryExistsException {	
     	try {
     		// Query account and password from DB
     		String query = String.format("SELECT * FROM User WHERE account = \"%s\" and password = \"%s\"", user.getAccount(), user.getPassword()); 		
@@ -56,11 +58,12 @@ public class JDBCUserAdapter implements UserAdapter {
 	            return new User(id, Qaccount, Qpassword);
     		}
     		else {
-    			throw new CreateException("Account already exists!");
+    			throw new EntryExistsException("Account already exists!");
     		}
     	}
     	catch(Exception ex) {
-    		throw new CreateException(ex.getMessage());
+    		System.out.println(ex.getMessage());
+    		return new User();
     	}
     }
 
@@ -80,13 +83,13 @@ public class JDBCUserAdapter implements UserAdapter {
      * @param userId
      * @return User
      */
-    public User deleteUser(Integer userId) throws DeleteException {
+    public User deleteUser(Integer userId) throws EntryNotFoundException {
 		try {
 			// Query user id from DB
     		String query = String.format("SELECT * FROM User WHERE id = %d", userId);
     		rs = st.executeQuery(query);
             if (rs.next() == false){
-                throw new DeleteException("User not found");
+                throw new EntryNotFoundException("User not found");
             }
 
         	Integer id = rs.getInt("id");
@@ -100,7 +103,8 @@ public class JDBCUserAdapter implements UserAdapter {
 			return new User(id, Qaccount, Qpassword);
 		}
 		catch(Exception ex) {
-			throw new DeleteException(ex.getMessage());
+			System.out.println(ex.getMessage());
+			return new User();
 		}
     }
 
@@ -110,7 +114,7 @@ public class JDBCUserAdapter implements UserAdapter {
      * @param account, password
      * @return user
      */
-    public User queryUser(String account, String password) throws QueryException {
+    public User queryUser(String account, String password) throws EntryNotFoundException {
     	try {
     		// Query account and password from DB
     		String query = String.format("SELECT * FROM User WHERE account = \"%s\" and password = \"%s\"", account, password); 		
@@ -118,7 +122,7 @@ public class JDBCUserAdapter implements UserAdapter {
     		
     		// Throw exception if no matched, else return the result
     		if (rs.next() == false) {
-    			throw new QueryException("No matched account. Perhaps a wrong account or an incorrect password?");
+    			throw new EntryNotFoundException("No matched account. Perhaps a wrong account or an incorrect password?");
     		}
     		else {
             	Integer id = rs.getInt("id");
@@ -128,7 +132,8 @@ public class JDBCUserAdapter implements UserAdapter {
     		}
     	}
     	catch(Exception ex) {
-    		throw new QueryException(ex.getMessage());
+    		System.out.println(ex.getMessage());
+    		return new User();
     	}
     }
 }

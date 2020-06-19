@@ -11,7 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.oop18.entities.User;
-import org.oop18.exceptions.QueryException;
+import org.oop18.exceptions.EntryNotFoundException;
 import org.oop18.models.OrderAdapterFactory;
 import org.oop18.models.ProductAdapterFactory;
 import org.oop18.models.UserAdapter;
@@ -56,7 +56,7 @@ public class LoginController {
                 UserAdapter userAdapter = userAdapterFactory.create();
                 User currentUser = userAdapter.queryUser(userName.getText(), password.getText());
                 Platform.runLater(() -> loadTravelItineraryListView(event, currentUser));
-            } catch (QueryException e) {
+            } catch (EntryNotFoundException e) {
                 System.out.println(e.getMessage());
             }
         });

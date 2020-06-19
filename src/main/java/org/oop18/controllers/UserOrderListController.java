@@ -75,6 +75,7 @@ public class UserOrderListController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+    	//TODO: Need fixing
         List<Order> orderList = orderAdapter.queryOrders(currentUser.getId());
 
         orderTableObservableList.addAll(orderList);
