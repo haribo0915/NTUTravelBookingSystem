@@ -59,6 +59,8 @@ public class LoginController {
                 Platform.runLater(() -> loadTravelItineraryListView(event, currentUser));
             } catch (EntryNotFoundException e) {
                 Platform.runLater(() -> loadErrorBoxView(event, e.getMessage()));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }

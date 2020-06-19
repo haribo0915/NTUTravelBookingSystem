@@ -91,6 +91,8 @@ public class UserOrderDetailsController implements Initializable {
             stage.close();
         } catch (UpdateException e) {
             loadErrorBoxView((ActionEvent) event, e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
