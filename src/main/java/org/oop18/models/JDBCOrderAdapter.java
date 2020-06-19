@@ -2,7 +2,6 @@ package org.oop18.models;
 
 import org.oop18.entities.Order;
 import org.oop18.exceptions.CreateException;
-import org.oop18.exceptions.EntryExistsException;
 import org.oop18.exceptions.EntryNotFoundException;
 import org.oop18.exceptions.UpdateException;
 
@@ -191,7 +190,22 @@ public class JDBCOrderAdapter implements OrderAdapter {
     		adultCount = rs.getInt("adult_count");
     		childrenCount = rs.getInt("children_count");
     		totalPrice = rs.getInt("total_price");
-    		createdTime = rs.getTimestamp("created_time");		
+    		createdTime = rs.getTimestamp("created_time");	
+    		
+    		//Query with product ID
+			query = String.format("SELECT * FROM `product` WHERE `id` = \'%d\'", order.getProductId());
+			rs = st.executeQuery(query);
+			
+    		if (rs.next() == false) {
+    			throw new EntryNotFoundException("Product not found!");
+    		}
+    		
+			//Check days between today and departure date
+			LocalDateTime departure = rs.getTimestamp("start_date").toLocalDateTime();
+			LocalDateTime today = LocalDateTime.now();
+			if (ChronoUnit.DAYS.between(today, departure) < 10 ) {
+				throw new UpdateException("You can only delete orders 10 days before departure!");
+			}	
     		
             // Delete the order
     		query = String.format("DELETE FROM `order` WHERE `id` = \'%d\'", order.getId());
