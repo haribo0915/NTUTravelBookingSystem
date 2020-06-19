@@ -1,19 +1,26 @@
 package org.oop18.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.oop18.entities.Order;
 import org.oop18.entities.Product;
 import org.oop18.entities.User;
+import org.oop18.exceptions.CreateException;
 import org.oop18.models.OrderAdapter;
 import org.oop18.models.OrderAdapterFactory;
 import org.oop18.models.ProductAdapter;
 import org.oop18.models.ProductAdapterFactory;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
@@ -73,7 +80,26 @@ public class OrderDialogController implements Initializable {
 
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             stage.close();
-        } catch (Exception e) {
+        } catch (CreateException e) {
+            loadErrorBoxView((ActionEvent) event, e.getMessage());
+        }
+    }
+
+    private void loadErrorBoxView(ActionEvent event, String errorMessage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ErrorBox.fxml"));
+
+            ErrorBoxController errorBoxController = new ErrorBoxController(errorMessage);
+            loader.setController(errorBoxController);
+
+            Parent ErrorBoxParent = loader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Error");
+            stage.setScene(new Scene(ErrorBoxParent));
+            stage.sizeToScene();
+            stage.showAndWait();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

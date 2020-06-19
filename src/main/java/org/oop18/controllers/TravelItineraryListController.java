@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import org.oop18.entities.Product;
 import org.oop18.entities.TravelCode;
 import org.oop18.entities.User;
+import org.oop18.exceptions.EntryNotFoundException;
 import org.oop18.models.OrderAdapterFactory;
 import org.oop18.models.ProductAdapter;
 import org.oop18.models.ProductAdapterFactory;
@@ -96,12 +97,14 @@ public class TravelItineraryListController implements Initializable {
             }
             travelCodeComboBox.setItems(travelCodeComboBoxObservableList);
 
+        } catch (EntryNotFoundException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            initProductTable();
+            //queryProductsBtn.setDisable(true);
         }
-
-        initProductTable();
-        //queryProductsBtn.setDisable(true);
     }
 
     private void initProductTable() {
@@ -132,6 +135,8 @@ public class TravelItineraryListController implements Initializable {
                 Timestamp startDate = (localDateStr == null || localDateStr.equals(""))? null : new Timestamp(formatter.parse(localDateStr).getTime());
 
                 productList = productAdapter.queryProducts(travelCode, startDate);
+            } catch (EntryNotFoundException e) {
+                System.out.println(e.getMessage());
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {

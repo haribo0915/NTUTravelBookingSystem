@@ -92,7 +92,7 @@ public class JDBCProductAdapter implements ProductAdapter {
     		while(rs.next());
             if (travelCode != null) {
                 productList = productList.stream()
-                                    .filter((Product product) -> (product.getTravelCodeId().equals(travelCode.getId())))
+                                    .filter((Product product) -> (product.getTravelCode().equals(travelCode.getId())))
                                     .collect(Collectors.toList());
             }
             if (startDate != null) {

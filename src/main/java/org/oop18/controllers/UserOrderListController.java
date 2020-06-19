@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import org.oop18.entities.Order;
 import org.oop18.entities.Product;
 import org.oop18.entities.User;
+import org.oop18.exceptions.EntryNotFoundException;
 import org.oop18.models.OrderAdapter;
 import org.oop18.models.OrderAdapterFactory;
 import org.oop18.models.ProductAdapter;
@@ -75,13 +76,19 @@ public class UserOrderListController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-    	//TODO: Need fixing
-        List<Order> orderList = orderAdapter.queryOrders(currentUser.getId());
 
-        orderTableObservableList.addAll(orderList);
-        orderTable.setItems(orderTableObservableList);
-
-        initOrderTable();
+        List<Order> orderList = null;
+        try {
+            orderList = orderAdapter.queryOrders(currentUser.getId());
+        } catch (EntryNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            orderTableObservableList.addAll(orderList);
+            orderTable.setItems(orderTableObservableList);
+            initOrderTable();
+        }
     }
 
     private void initOrderTable() {
@@ -137,6 +144,8 @@ public class UserOrderListController implements Initializable {
                 selectedOrder = orderAdapter.deleteOrder(selectedOrder);
 
                 orderList = orderAdapter.queryOrders(currentUser.getId());
+            } catch (EntryNotFoundException e) {
+                System.out.println(e.getMessage());
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {

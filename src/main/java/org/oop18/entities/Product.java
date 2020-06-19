@@ -7,8 +7,8 @@ import java.sql.Timestamp;
  */
 public class Product {
     private Integer id;
-    private Integer travelCodeId;
     private String title;
+    private Integer travelCode;
     private String productKey;
     private Integer price;
     private Timestamp startDate;
@@ -19,9 +19,9 @@ public class Product {
     public Product() {
     }
 
-    public Product(Integer id, Integer travelCodeId, String title, String productKey, Integer price, Timestamp startDate, Timestamp endDate, Integer lowerBound, Integer upperBound) {
+    public Product(Integer id, Integer travelCode, String title, String productKey, Integer price, Timestamp startDate, Timestamp endDate, Integer lowerBound, Integer upperBound) {
         this.id = id;
-        this.travelCodeId = travelCodeId;
+        this.travelCode = travelCode;
         this.title = title;
         this.productKey = productKey;
         this.price = price;
@@ -39,12 +39,12 @@ public class Product {
         this.id = id;
     }
 
-    public Integer getTravelCodeId() {
-        return travelCodeId;
+    public Integer getTravelCode() {
+        return travelCode;
     }
 
-    public void setTravelCodeId(Integer travelCodeId) {
-        this.travelCodeId = travelCodeId;
+    public void setTravelCode(Integer travelCode) {
+        this.travelCode = travelCode;
     }
 
     public String getTitle() {
