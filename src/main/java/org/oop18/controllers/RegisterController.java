@@ -10,8 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.oop18.entities.User;
 import org.oop18.models.*;
-import org.oop18.entities.*;
 
 import java.io.IOException;
 import java.net.URL;

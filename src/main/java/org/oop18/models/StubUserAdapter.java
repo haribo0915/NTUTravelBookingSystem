@@ -1,9 +1,8 @@
 package org.oop18.models;
 
 import org.oop18.entities.User;
-import org.oop18.exceptions.CreateException;
-import org.oop18.exceptions.DeleteException;
-import org.oop18.exceptions.QueryException;
+import org.oop18.exceptions.EntryExistsException;
+import org.oop18.exceptions.EntryNotFoundException;
 import org.oop18.exceptions.UpdateException;
 
 import java.util.Random;
@@ -13,7 +12,7 @@ import java.util.Random;
  */
 public class StubUserAdapter implements UserAdapter {
     @Override
-    public User createUser(User user) throws CreateException {
+    public User createUser(User user) throws EntryExistsException {
         Random rand = new Random();
         Integer id = rand.nextInt(50);
         id += 1;
@@ -26,16 +25,16 @@ public class StubUserAdapter implements UserAdapter {
     }
 
     @Override
-    public User deleteUser(Integer userId) throws DeleteException {
+    public User deleteUser(Integer userId) throws EntryNotFoundException {
         return null;
     }
 
     @Override
-    public User queryUser(String account, String password) throws QueryException {
+    public User queryUser(String account, String password) throws EntryNotFoundException {
         if (account.equals("admin") && password.equals("admin")) {
             return new User(1, "admin", "admin");
         } else {
-            throw new QueryException("User Not Found");
+            throw new EntryNotFoundException("User Not Found");
         }
     }
 }

@@ -1,11 +1,9 @@
 package org.oop18.models;
 
 import org.oop18.entities.Order;
-import org.oop18.entities.Product;
-import org.oop18.exceptions.CreateException;
-import org.oop18.exceptions.DeleteException;
-import org.oop18.exceptions.QueryException;
 import org.oop18.exceptions.UpdateException;
+import org.oop18.exceptions.EntryExistsException;
+import org.oop18.exceptions.EntryNotFoundException;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -17,7 +15,7 @@ import java.util.Random;
  */
 public class StubOrderAdapter implements OrderAdapter {
     @Override
-    public Order createOrder(Order order) throws CreateException {
+    public Order createOrder(Order order) throws EntryExistsException {
         Random rand = new Random();
         Integer randomId = rand.nextInt(50);
         randomId += 1;
@@ -30,12 +28,12 @@ public class StubOrderAdapter implements OrderAdapter {
     }
 
     @Override
-    public Order deleteOrder(Order order) throws DeleteException {
+    public Order deleteOrder(Order order) throws EntryNotFoundException {
         return order;
     }
 
     @Override
-    public List<Order> queryOrders(Integer userId) throws QueryException {
+    public List<Order> queryOrders(Integer userId) throws EntryNotFoundException {
         List<Order> orderList = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             Random rand = new Random();
