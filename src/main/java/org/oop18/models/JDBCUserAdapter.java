@@ -3,6 +3,7 @@ package org.oop18.models;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.oop18.entities.User;
@@ -61,7 +62,7 @@ public class JDBCUserAdapter implements UserAdapter {
     			throw new EntryExistsException("Account already exists!");
     		}
     	}
-    	catch(Exception ex) {
+    	catch(SQLException ex) {
     		System.out.println(ex.getMessage());
     		return new User();
     	}
@@ -102,7 +103,7 @@ public class JDBCUserAdapter implements UserAdapter {
 			
 			return new User(id, Qaccount, Qpassword);
 		}
-		catch(Exception ex) {
+		catch(SQLException ex) {
 			System.out.println(ex.getMessage());
 			return new User();
 		}
@@ -131,7 +132,7 @@ public class JDBCUserAdapter implements UserAdapter {
                 return new User(id, Qaccount, Qpassword);
     		}
     	}
-    	catch(Exception ex) {
+    	catch(SQLException ex) {
     		System.out.println(ex.getMessage());
     		return new User();
     	}

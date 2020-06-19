@@ -9,6 +9,7 @@ import org.oop18.exceptions.UpdateException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -137,7 +138,7 @@ public class JDBCOrderAdapter implements OrderAdapter {
     		
     		return new Order(id, userId, productId, adultCount, childrenCount, totalPrice, createdTime);
     	}
-    	catch (Exception ex) {
+    	catch (SQLException ex) {
     		System.out.println(ex.getMessage());
     		return new Order();
     	}
@@ -173,7 +174,7 @@ public class JDBCOrderAdapter implements OrderAdapter {
 
     		return new Order(id, userId, productId, adultCount, childrenCount, totalPrice, createdTime);
     	}
-    	catch (Exception ex) {
+    	catch (SQLException ex) {
     		System.out.println(ex.getMessage());
     		return new Order();
     	}
