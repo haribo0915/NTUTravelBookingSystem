@@ -3,6 +3,7 @@ package org.oop18.controllers;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,7 @@ import org.oop18.entities.Order;
 import org.oop18.entities.Product;
 import org.oop18.entities.User;
 import org.oop18.exceptions.EntryNotFoundException;
+import org.oop18.exceptions.UpdateException;
 import org.oop18.models.OrderAdapter;
 import org.oop18.models.OrderAdapterFactory;
 import org.oop18.models.ProductAdapter;
@@ -77,12 +79,13 @@ public class UserOrderListController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        List<Order> orderList = null;
+        List<Order> orderList = new ArrayList<>();
         try {
             orderList = orderAdapter.queryOrders(currentUser.getId());
         } catch (EntryNotFoundException e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {
+            System.out.println("I am here");
             e.printStackTrace();
         } finally {
             orderTableObservableList.addAll(orderList);
@@ -100,6 +103,20 @@ public class UserOrderListController implements Initializable {
         orderCreatedTimeCol.setCellValueFactory(new PropertyValueFactory<>("createdTime"));
     }
 
+    private void refreshAllOrderTable() {
+        List<Order> orderList = new ArrayList<>();
+
+        try {
+            orderList = orderAdapter.queryOrders(currentUser.getId());
+        } catch (EntryNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            refreshOrderTable(orderList);
+        }
+    }
+
     private void refreshOrderTable(List<Order> orderList) {
         orderTableObservableList.clear();
         orderTableObservableList.addAll(orderList);
@@ -107,14 +124,14 @@ public class UserOrderListController implements Initializable {
     }
 
     public void querySelectedUserOrderHandler(Event event) {
-        cachedThreadPool.execute(() -> {
-            try {
-                Order selectedUserOrder = orderTable.getSelectionModel().getSelectedItem();
-                Platform.runLater(() -> loadUserOrderDetailsView(event, selectedUserOrder));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        try {
+            Order selectedUserOrder = orderTable.getSelectionModel().getSelectedItem();
+            loadUserOrderDetailsView(event, selectedUserOrder);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            refreshAllOrderTable();
+        }
     }
 
     private void loadUserOrderDetailsView(Event event, Order selectedUserOrder) {
@@ -138,19 +155,38 @@ public class UserOrderListController implements Initializable {
 
     public void deleteSelectedUserOrderHandler(Event event) {
         cachedThreadPool.execute(() -> {
-            List<Order> orderList = new ArrayList<>();
             try {
                 Order selectedOrder = orderTable.getSelectionModel().getSelectedItem();
                 selectedOrder = orderAdapter.deleteOrder(selectedOrder);
 
-                orderList = orderAdapter.queryOrders(currentUser.getId());
             } catch (EntryNotFoundException e) {
                 System.out.println(e.getMessage());
+            } catch (UpdateException e) {
+                Platform.runLater(() -> loadErrorBoxView((ActionEvent) event, e.getMessage()));
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                refreshOrderTable(orderList);
+                refreshAllOrderTable();
             }
         });
+    }
+
+    private void loadErrorBoxView(ActionEvent event, String errorMessage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ErrorBox.fxml"));
+
+            ErrorBoxController errorBoxController = new ErrorBoxController(errorMessage);
+            loader.setController(errorBoxController);
+
+            Parent ErrorBoxParent = loader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Error");
+            stage.setScene(new Scene(ErrorBoxParent));
+            stage.sizeToScene();
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

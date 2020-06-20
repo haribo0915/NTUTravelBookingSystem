@@ -20,7 +20,6 @@ import org.oop18.models.UserAdapterFactory;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * @author - Haribo

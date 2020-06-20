@@ -4,11 +4,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.oop18.controllers.LoginController;
 import org.oop18.models.*;
+
 
 import java.io.IOException;
 
@@ -24,9 +23,9 @@ public class App extends Application {
             Parent root = loader.load();
 
             LoginController loginController = loader.getController();
-            loginController.setUserAdapterFactory(new StubUserAdapterFactory());
-            loginController.setProductAdapterFactory(new StubProductAdapterFactory());
-            loginController.setOrderAdapterFactory(new StubOrderAdapterFactory());
+            loginController.setUserAdapterFactory(new JDBCUserAdapterFactory());
+            loginController.setProductAdapterFactory(new JDBCProductAdapterFactory());
+            loginController.setOrderAdapterFactory(new JDBCOrderAdapterFactory());
 
             stage.setTitle("NTU Travel Booking System");
             stage.setScene(new Scene(root));

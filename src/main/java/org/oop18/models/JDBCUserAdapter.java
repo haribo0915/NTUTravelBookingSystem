@@ -1,38 +1,22 @@
 package org.oop18.models;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import org.oop18.entities.User;
 import org.oop18.exceptions.EntryExistsException;
 import org.oop18.exceptions.EntryNotFoundException;
 import org.oop18.exceptions.UpdateException;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class JDBCUserAdapter implements UserAdapter {
-	
-    private Connection con = null;
-    private Statement st = null;
-    private ResultSet rs = null;
-    
-    /**
-     * Establish MySQL database connection when constructed
-     */
-    public JDBCUserAdapter() {
-        try {
-            //Class 的靜態 forName() 方法實現動態加載類別
-            Class.forName("com.mysql.jdbc.Driver");
-            //3306|MySQL開放此端口
-            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ntu_travel_booking_system","root","root");
-            st = con.createStatement();   
-        } 
-        catch(Exception ex) {
-        	System.out.println(ex.getMessage());
-        }
-    }
-	
+	private JDBCConnectionPool jdbcConnectionPool;
+
+	public JDBCUserAdapter() {
+		jdbcConnectionPool = JDBCConnectionPool.getInstance();
+	}
+
     @Override
     /**
      * Method to create a user
@@ -43,11 +27,14 @@ public class JDBCUserAdapter implements UserAdapter {
     	Integer id = null;
         String Qaccount = null;
         String Qpassword = null;
+
+        Connection conn = jdbcConnectionPool.takeOut();
     	
     	try {
     		// Query account and password from DB
-    		String query = String.format("SELECT * FROM User WHERE account = \"%s\" and password = \"%s\"", user.getAccount(), user.getPassword()); 		
-    		rs = st.executeQuery(query);
+    		String query = String.format("SELECT * FROM User WHERE account = \"%s\" and password = \"%s\"", user.getAccount(), user.getPassword());
+    		Statement st = conn.createStatement();
+    		ResultSet rs = st.executeQuery(query);
     		
     		// insert account into DB if not exist
     		if (rs.next() == false) {
@@ -68,7 +55,10 @@ public class JDBCUserAdapter implements UserAdapter {
     	catch(SQLException ex) {
     		System.out.println(ex.getMessage());
     	}
-    	return new User(id, Qaccount, Qpassword);
+    	finally {
+    		jdbcConnectionPool.takeIn(conn);
+		}
+		return new User(id, Qaccount, Qpassword);
     }
 
     @Override
@@ -91,11 +81,15 @@ public class JDBCUserAdapter implements UserAdapter {
     	Integer id = null;
         String Qaccount = null;
         String Qpassword = null;
+
+		Connection conn = jdbcConnectionPool.takeOut();
         
     	try {
 			// Query user id from DB
     		String query = String.format("SELECT * FROM User WHERE id = %d", userId);
-    		rs = st.executeQuery(query);
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
             if (rs.next() == false){
                 throw new EntryNotFoundException("User not found");
             }
@@ -111,7 +105,10 @@ public class JDBCUserAdapter implements UserAdapter {
 		catch(SQLException ex) {
 			System.out.println(ex.getMessage());
 		}
-    	return new User(id, Qaccount, Qpassword);
+		finally {
+			jdbcConnectionPool.takeIn(conn);
+		}
+		return new User(id, Qaccount, Qpassword);
     }
 
     @Override
@@ -124,11 +121,14 @@ public class JDBCUserAdapter implements UserAdapter {
     	Integer id = null;
         String Qaccount = null;
         String Qpassword = null;
-    	
+
+		Connection conn = jdbcConnectionPool.takeOut();
+
     	try {
     		// Query account and password from DB
-    		String query = String.format("SELECT * FROM User WHERE account = \"%s\" and password = \"%s\"", account, password); 		
-    		rs = st.executeQuery(query);
+    		String query = String.format("SELECT * FROM User WHERE account = \"%s\" and password = \"%s\"", account, password);
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
     		
     		// Throw exception if no matched, else return the result
     		if (rs.next() == false) {
@@ -139,10 +139,14 @@ public class JDBCUserAdapter implements UserAdapter {
                 Qaccount = rs.getString("account");
                 Qpassword = rs.getString("password");
     		}
+			return new User(id, Qaccount, Qpassword);
     	}
     	catch(SQLException ex) {
     		System.out.println(ex.getMessage());
     	}
-    	return new User(id, Qaccount, Qpassword);
+		finally {
+			jdbcConnectionPool.takeIn(conn);
+		}
+		return new User(id, Qaccount, Qpassword);
     }
 }

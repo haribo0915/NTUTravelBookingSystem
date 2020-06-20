@@ -85,13 +85,13 @@ public class TravelItineraryListController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        List<Product> productList = new ArrayList<>();
         try {
-            List<Product> productList = productAdapter.queryProducts(null, null);
+            productList = productAdapter.queryProducts(null, null);
             productTableObservableList.addAll(productList);
             productTable.setItems(productTableObservableList);
 
             List<TravelCode> travelCodeList = productAdapter.queryTravelCodes();
-            System.out.println(travelCodeList);
             for (TravelCode travelCode: travelCodeList) {
                 travelCodeComboBoxObservableList.add(travelCode.getTravelCodeName());
             }

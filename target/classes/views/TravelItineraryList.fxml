@@ -20,14 +20,14 @@
                   <Image url="@../images/magnifying-glass.png" />
                </image>
             </ImageView>
-            <ComboBox fx:id="travelCodeComboBox" editable="true" layoutX="120.0" layoutY="55.0" prefWidth="150.0" promptText="Destination" style="-fx-background-color: #ffffff; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" />
-            <DatePicker fx:id="datePicker" layoutX="320.0" layoutY="55.0" promptText="Departure Date" style="-fx-border-width: 0px 0px 2px 0px; -fx-border-color: #0598ff;" />
-            <ImageView fitHeight="26.0" fitWidth="37.0" layoutX="86.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+            <ComboBox fx:id="travelCodeComboBox" editable="true" layoutX="102.0" layoutY="55.0" prefHeight="26.0" prefWidth="243.0" promptText="Destination" style="-fx-background-color: #ffffff; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" />
+            <DatePicker fx:id="datePicker" layoutX="396.0" layoutY="55.0" prefHeight="26.0" prefWidth="159.0" promptText="Departure Date" style="-fx-border-width: 0px 0px 2px 0px; -fx-border-color: #0598ff;" />
+            <ImageView fitHeight="26.0" fitWidth="37.0" layoutX="68.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/covid.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="26.0" fitWidth="37.0" layoutX="287.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="26.0" fitWidth="37.0" layoutX="364.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/calendar.png" />
                </image>
@@ -45,7 +45,7 @@
                   <Font name="Arial" size="14.0" />
                </font>
             </Label>
-            <Button fx:id="queryProductsBtn" layoutX="519.0" layoutY="56.0" mnemonicParsing="false" onAction="#queryProductsHandler" prefHeight="21.0" prefWidth="37.0" style="-fx-background-radius: 30; -fx-background-color: #0598ff;" text="Go" textFill="WHITE" />
+            <Button fx:id="queryProductsBtn" layoutX="567.0" layoutY="56.0" mnemonicParsing="false" onAction="#queryProductsHandler" prefHeight="21.0" prefWidth="37.0" style="-fx-background-radius: 30; -fx-background-color: #0598ff;" text="Go" textFill="WHITE" />
          </children>
       </AnchorPane>
       <AnchorPane layoutY="106.0" prefHeight="393.0" prefWidth="700.0">
