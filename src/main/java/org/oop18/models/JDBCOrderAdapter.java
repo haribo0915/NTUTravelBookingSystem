@@ -108,6 +108,7 @@ public class JDBCOrderAdapter implements OrderAdapter {
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
     		if (rs.next() == false) {
+                //throw exception if no order is found
     			throw new EntryNotFoundException("Order not found!");
     		}
     		
@@ -119,34 +120,38 @@ public class JDBCOrderAdapter implements OrderAdapter {
 			rs = st.executeQuery(query);
 			
     		if (rs.next() == false) {
+                //throw exception if no product is found
     			throw new EntryNotFoundException("Product not found!");
     		}
+
 			//Check days between today and departure date
 			LocalDateTime departure = rs.getTimestamp("start_date").toLocalDateTime();
 			LocalDateTime today = LocalDateTime.now();
 			if (ChronoUnit.DAYS.between(today, departure) < 10 ) {
+                //throw exception if order can't be changed
 				throw new UpdateException("You can only modify orders 10 days before departure!");
 			}
 			
-            // calculate and check # of people
+            
             if( rs.getInt("id") != order.getProductId() ) 
                 throw new UpdateException("Invalid Product ID");
             
             Integer max_people = rs.getInt("upper_bound");
-
+            
+            // calculate and check # of people
             Integer sum = 0;
             rs = st.executeQuery( String.format("SELECT SUM(adult_count) FROM `order` WHERE product_id=%d", order.getProductId()));
             rs.next(); sum += rs.getInt("SUM(adult_count)");
             rs = st.executeQuery( String.format("SELECT SUM(children_count) FROM `order` WHERE product_id=%d", order.getProductId()));
             rs.next(); sum += rs.getInt("SUM(children_count)");
 
-            // non-negative
+            // Check if entered number is non-negative
             if( order.getAdultCount() < 0 )
                 throw new UpdateException("Number of Adult needs to be non-negative.");
             if( order.getChildrenCount() < 0 )
                 throw new UpdateException("Number of Children needs to be non-negative.");
             
-            // upper bound
+            // throw exception if current guest exceeds upper bound
             if( (sum+order.getAdultCount()+order.getChildrenCount()-originalAdultCount-originalChildrenCount) > max_people )
                 throw new UpdateException( String.format("This trip handles at most %d people.\nAn order of %d people is placed.\nCurrently registered: %d.", max_people, order.getAdultCount()+order.getChildrenCount(), sum));
 			
@@ -154,7 +159,7 @@ public class JDBCOrderAdapter implements OrderAdapter {
 			query = String.format("UPDATE `order` SET `adult_count` = \'%d\', `children_count` = \'%d\' WHERE (`id` = \'%d\')", order.getAdultCount(), order.getChildrenCount(), order.getId());
 			st.executeUpdate(query);
 			
-			
+			//make sure the order is updated
 			query = String.format("SELECT * FROM `order` WHERE `id` = \'%d\'", order.getId());
 			rs = st.executeQuery(query);
     		if (rs.next() == false) {
@@ -202,6 +207,7 @@ public class JDBCOrderAdapter implements OrderAdapter {
 			ResultSet rs = st.executeQuery(query);
     		
     		if (rs.next() == false) {
+                //throw exception if no order is found
     			throw new EntryNotFoundException("Order not found");
     		}
     		
@@ -218,6 +224,7 @@ public class JDBCOrderAdapter implements OrderAdapter {
 			rs = st.executeQuery(query);
 			
     		if (rs.next() == false) {
+                //throw exception if no product is found
     			throw new EntryNotFoundException("Product not found!");
     		}
     		
@@ -225,6 +232,7 @@ public class JDBCOrderAdapter implements OrderAdapter {
 			LocalDateTime departure = rs.getTimestamp("start_date").toLocalDateTime();
 			LocalDateTime today = LocalDateTime.now();
 			if (ChronoUnit.DAYS.between(today, departure) < 10 ) {
+                //throw exception if order can't be changed
 				throw new UpdateException("You can only delete orders 10 days before departure!");
 			}	
     		
