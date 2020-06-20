@@ -63,9 +63,9 @@ public class JDBCOrderAdapter implements OrderAdapter {
             // cannot make for incoming 10 day
             long oneDay = 1 * 24 * 60 * 60 * 1000;
             Timestamp deadline = new Timestamp(start_date.getTime() - 10*oneDay);
-            if( (order.getCreatedTime()).after(deadline) )
-                throw new CreateException("Cannot place orders for incoming 10 days.");
-            
+            if( (order.getCreatedTime()).after(deadline) ) {
+				throw new CreateException("Cannot place orders for incoming 10 days.");
+			}
             // create order id : append to `order` table
             rs = st.executeQuery("SELECT COUNT(*) FROM `order`");
             rs.next();
@@ -76,13 +76,13 @@ public class JDBCOrderAdapter implements OrderAdapter {
                 order.getId(), order.getUserId(), order.getProductId(), 
                 order.getAdultCount(), order.getChildrenCount(), order.getTotalPrice(), order.getCreatedTime() ));
         }
-        catch(Exception e){
+        catch(SQLException e){
         	e.printStackTrace();
         }
 		finally {
 			jdbcConnectionPool.takeIn(conn);
-			return order;
 		}
+		return order;
     }
 
     @Override
@@ -174,8 +174,8 @@ public class JDBCOrderAdapter implements OrderAdapter {
     	}
 		finally {
 			jdbcConnectionPool.takeIn(conn);
-			return new Order(id, userId, productId, adultCount, childrenCount, totalPrice, createdTime);
 		}
+		return new Order(id, userId, productId, adultCount, childrenCount, totalPrice, createdTime);
     }
 
     @Override
@@ -237,8 +237,8 @@ public class JDBCOrderAdapter implements OrderAdapter {
     	}
 		finally {
 			jdbcConnectionPool.takeIn(conn);
-			return new Order(id, userId, productId, adultCount, childrenCount, totalPrice, createdTime);
 		}
+		return new Order(id, userId, productId, adultCount, childrenCount, totalPrice, createdTime);
     }
 
     @Override
@@ -276,12 +276,12 @@ public class JDBCOrderAdapter implements OrderAdapter {
 	    		queryResult.add(new Order(id, QuserId, productId, adultCount, childrenCount, totalPrice, createdTime));
     		} while (rs.next());		 
     	}
-    	catch (Exception ex) {
+    	catch (SQLException ex) {
     		ex.printStackTrace();
     	}
 		finally {
 			jdbcConnectionPool.takeIn(conn);
-			return queryResult;
 		}
+		return queryResult;
     }
 }

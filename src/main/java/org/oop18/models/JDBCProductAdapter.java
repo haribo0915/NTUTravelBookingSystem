@@ -57,8 +57,8 @@ public class JDBCProductAdapter implements ProductAdapter {
     	}
 		finally {
 			jdbcConnectionPool.takeIn(conn);
-			return new Product(product_id, travel_code,title,product_key,price,start,end, lower_bound,upper_bound);
 		}
+		return new Product(product_id, travel_code,title,product_key,price,start,end, lower_bound,upper_bound);
     }
 
 
@@ -109,8 +109,8 @@ public class JDBCProductAdapter implements ProductAdapter {
     	}
 		finally {
 			jdbcConnectionPool.takeIn(conn);
-			return productList;
 		}
+		return productList;
     }
 
     @Override
@@ -139,8 +139,8 @@ public class JDBCProductAdapter implements ProductAdapter {
     	}
 		finally {
 			jdbcConnectionPool.takeIn(conn);
-			return travelCodeList;
 		}
+		return travelCodeList;
     }
 
     @Override
@@ -165,7 +165,7 @@ public class JDBCProductAdapter implements ProductAdapter {
     	}
 		finally {
 			jdbcConnectionPool.takeIn(conn);
-			return(new TravelCode(travel_code, travel_code_name));
 		}
+		return(new TravelCode(travel_code, travel_code_name));
     }
 }

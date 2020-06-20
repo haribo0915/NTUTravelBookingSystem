@@ -57,8 +57,8 @@ public class JDBCUserAdapter implements UserAdapter {
     	}
     	finally {
     		jdbcConnectionPool.takeIn(conn);
-			return new User(id, Qaccount, Qpassword);
 		}
+		return new User(id, Qaccount, Qpassword);
     }
 
     @Override
@@ -107,8 +107,8 @@ public class JDBCUserAdapter implements UserAdapter {
 		}
 		finally {
 			jdbcConnectionPool.takeIn(conn);
-			return new User(id, Qaccount, Qpassword);
 		}
+		return new User(id, Qaccount, Qpassword);
     }
 
     @Override
@@ -139,13 +139,14 @@ public class JDBCUserAdapter implements UserAdapter {
                 Qaccount = rs.getString("account");
                 Qpassword = rs.getString("password");
     		}
+			return new User(id, Qaccount, Qpassword);
     	}
     	catch(SQLException ex) {
     		System.out.println(ex.getMessage());
     	}
 		finally {
 			jdbcConnectionPool.takeIn(conn);
-			return new User(id, Qaccount, Qpassword);
 		}
+		return new User(id, Qaccount, Qpassword);
     }
 }

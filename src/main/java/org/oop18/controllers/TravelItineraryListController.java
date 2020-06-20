@@ -92,7 +92,6 @@ public class TravelItineraryListController implements Initializable {
             productTable.setItems(productTableObservableList);
 
             List<TravelCode> travelCodeList = productAdapter.queryTravelCodes();
-            System.out.println(travelCodeList);
             for (TravelCode travelCode: travelCodeList) {
                 travelCodeComboBoxObservableList.add(travelCode.getTravelCodeName());
             }
