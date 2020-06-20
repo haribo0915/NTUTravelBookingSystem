@@ -24,7 +24,8 @@ public class JDBCUserAdapter implements UserAdapter {
      * @return user
      */
     public User createUser(User user) throws EntryExistsException {	
-    	Integer id = null;
+    	
+        Integer id = null;
         String Qaccount = null;
         String Qpassword = null;
 
@@ -49,6 +50,7 @@ public class JDBCUserAdapter implements UserAdapter {
 	            Qpassword = rs.getString("password");
     		}
     		else {
+                //throw exception if account exists
     			throw new EntryExistsException("Account already exists!");
     		}
     	}
@@ -91,6 +93,7 @@ public class JDBCUserAdapter implements UserAdapter {
 			ResultSet rs = st.executeQuery(query);
 
             if (rs.next() == false){
+                // throw exception if no user if found
                 throw new EntryNotFoundException("User not found");
             }
 
