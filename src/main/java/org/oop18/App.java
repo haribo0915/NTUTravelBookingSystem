@@ -24,8 +24,8 @@ public class App extends Application {
             Parent root = loader.load();
 
             LoginController loginController = loader.getController();
-            loginController.setUserAdapterFactory(new StubUserAdapterFactory());
-            loginController.setProductAdapterFactory(new StubProductAdapterFactory());
+            loginController.setUserAdapterFactory(new JDBCUserAdapterFactory());
+            loginController.setProductAdapterFactory(new JDBCProductAdapterFactory());
             loginController.setOrderAdapterFactory(new StubOrderAdapterFactory());
 
             stage.setTitle("NTU Travel Booking System");

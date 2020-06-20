@@ -11,26 +11,14 @@ import org.oop18.exceptions.EntryNotFoundException;
 import org.oop18.exceptions.UpdateException;
 
 public class JDBCUserAdapter implements UserAdapter {
-	
-    private Connection con = null;
+	private JDBCConnectionPool jdbcConnectionPool;
+
+	public JDBCUserAdapter() {
+		jdbcConnectionPool = JDBCConnectionPool.getInstance();
+	}
+
     private Statement st = null;
     private ResultSet rs = null;
-    
-    /**
-     * Establish MySQL database connection when constructed
-     */
-    public JDBCUserAdapter() {
-        try {
-            //Class 的靜態 forName() 方法實現動態加載類別
-            Class.forName("com.mysql.jdbc.Driver");
-            //3306|MySQL開放此端口
-            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ntu_travel_booking_system","root","root");
-            st = con.createStatement();   
-        } 
-        catch(Exception ex) {
-        	System.out.println(ex.getMessage());
-        }
-    }
 	
     @Override
     /**

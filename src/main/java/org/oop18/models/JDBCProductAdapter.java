@@ -105,6 +105,7 @@ public class JDBCProductAdapter implements ProductAdapter {
             }
             return productList;
         }catch (Exception ex) {
+        	System.out.println("I am here");
     		System.out.println(ex.getMessage());
     		return productList;
     	}    	
