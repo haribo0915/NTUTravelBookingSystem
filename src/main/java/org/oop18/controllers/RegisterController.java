@@ -9,8 +9,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.oop18.entities.User;
+import org.oop18.exceptions.EntryExistsException;
 import org.oop18.models.*;
 
 import java.io.IOException;
@@ -52,6 +54,8 @@ public class RegisterController implements Initializable {
             User user = new User(userAccountTextField.getText(), userPasswordTextField.getText());
             user = userAdapter.createUser(user);
             loadTravelItineraryListView(event, user);
+        } catch (EntryExistsException e) {
+            loadErrorBoxView(event, e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,6 +74,25 @@ public class RegisterController implements Initializable {
             stage.setScene(new Scene(travelItineraryListParent));
             stage.sizeToScene();
             stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadErrorBoxView(ActionEvent event, String errorMessage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ErrorBox.fxml"));
+
+            ErrorBoxController errorBoxController = new ErrorBoxController(errorMessage);
+            loader.setController(errorBoxController);
+
+            Parent ErrorBoxParent = loader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Error");
+            stage.setScene(new Scene(ErrorBoxParent));
+            stage.sizeToScene();
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }

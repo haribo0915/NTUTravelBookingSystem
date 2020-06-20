@@ -77,12 +77,13 @@ public class UserOrderListController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        List<Order> orderList = null;
+        List<Order> orderList = new ArrayList<>();
         try {
             orderList = orderAdapter.queryOrders(currentUser.getId());
         } catch (EntryNotFoundException e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {
+            System.out.println("I am here");
             e.printStackTrace();
         } finally {
             orderTableObservableList.addAll(orderList);

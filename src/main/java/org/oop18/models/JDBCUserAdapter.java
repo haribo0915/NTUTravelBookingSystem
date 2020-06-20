@@ -1,14 +1,14 @@
 package org.oop18.models;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
 import org.oop18.entities.User;
 import org.oop18.exceptions.EntryExistsException;
 import org.oop18.exceptions.EntryNotFoundException;
 import org.oop18.exceptions.UpdateException;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class JDBCUserAdapter implements UserAdapter {
 	private JDBCConnectionPool jdbcConnectionPool;
@@ -17,9 +17,6 @@ public class JDBCUserAdapter implements UserAdapter {
 		jdbcConnectionPool = JDBCConnectionPool.getInstance();
 	}
 
-    private Statement st = null;
-    private ResultSet rs = null;
-	
     @Override
     /**
      * Method to create a user
@@ -27,10 +24,17 @@ public class JDBCUserAdapter implements UserAdapter {
      * @return user
      */
     public User createUser(User user) throws EntryExistsException {	
+    	Integer id = null;
+        String Qaccount = null;
+        String Qpassword = null;
+
+        Connection conn = jdbcConnectionPool.takeOut();
+    	
     	try {
     		// Query account and password from DB
-    		String query = String.format("SELECT * FROM User WHERE account = \"%s\" and password = \"%s\"", user.getAccount(), user.getPassword()); 		
-    		rs = st.executeQuery(query);
+    		String query = String.format("SELECT * FROM User WHERE account = \"%s\" and password = \"%s\"", user.getAccount(), user.getPassword());
+    		Statement st = conn.createStatement();
+    		ResultSet rs = st.executeQuery(query);
     		
     		// insert account into DB if not exist
     		if (rs.next() == false) {
@@ -40,19 +44,21 @@ public class JDBCUserAdapter implements UserAdapter {
 				rs = st.executeQuery(query);
 			
 	    		rs.next();
-	            Integer id = rs.getInt("id");
-	            String Qaccount = rs.getString("account");
-	            String Qpassword = rs.getString("password");
-	            return new User(id, Qaccount, Qpassword);
+	            id = rs.getInt("id");
+	            Qaccount = rs.getString("account");
+	            Qpassword = rs.getString("password");
     		}
     		else {
     			throw new EntryExistsException("Account already exists!");
     		}
     	}
-    	catch(Exception ex) {
+    	catch(SQLException ex) {
     		System.out.println(ex.getMessage());
-    		return new User();
     	}
+    	finally {
+    		jdbcConnectionPool.takeIn(conn);
+			return new User(id, Qaccount, Qpassword);
+		}
     }
 
     @Override
@@ -72,27 +78,36 @@ public class JDBCUserAdapter implements UserAdapter {
      * @return User
      */
     public User deleteUser(Integer userId) throws EntryNotFoundException {
-		try {
+    	Integer id = null;
+        String Qaccount = null;
+        String Qpassword = null;
+
+		Connection conn = jdbcConnectionPool.takeOut();
+        
+    	try {
 			// Query user id from DB
     		String query = String.format("SELECT * FROM User WHERE id = %d", userId);
-    		rs = st.executeQuery(query);
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
             if (rs.next() == false){
                 throw new EntryNotFoundException("User not found");
             }
 
-        	Integer id = rs.getInt("id");
-            String Qaccount = rs.getString("account");
-            String Qpassword = rs.getString("password");
+        	id = rs.getInt("id");
+            Qaccount = rs.getString("account");
+            Qpassword = rs.getString("password");
             
             // Delete user form DB
 			query = String.format("DELETE FROM User WHERE id = %d", userId);
 			st.executeUpdate(query);
-			
-			return new User(id, Qaccount, Qpassword);
 		}
-		catch(Exception ex) {
+		catch(SQLException ex) {
 			System.out.println(ex.getMessage());
-			return new User();
+		}
+		finally {
+			jdbcConnectionPool.takeIn(conn);
+			return new User(id, Qaccount, Qpassword);
 		}
     }
 
@@ -103,25 +118,34 @@ public class JDBCUserAdapter implements UserAdapter {
      * @return user
      */
     public User queryUser(String account, String password) throws EntryNotFoundException {
+    	Integer id = null;
+        String Qaccount = null;
+        String Qpassword = null;
+
+		Connection conn = jdbcConnectionPool.takeOut();
+
     	try {
     		// Query account and password from DB
-    		String query = String.format("SELECT * FROM User WHERE account = \"%s\" and password = \"%s\"", account, password); 		
-    		rs = st.executeQuery(query);
+    		String query = String.format("SELECT * FROM User WHERE account = \"%s\" and password = \"%s\"", account, password);
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
     		
     		// Throw exception if no matched, else return the result
     		if (rs.next() == false) {
     			throw new EntryNotFoundException("No matched account. Perhaps a wrong account or an incorrect password?");
     		}
     		else {
-            	Integer id = rs.getInt("id");
-                String Qaccount = rs.getString("account");
-                String Qpassword = rs.getString("password");
-                return new User(id, Qaccount, Qpassword);
+            	id = rs.getInt("id");
+                Qaccount = rs.getString("account");
+                Qpassword = rs.getString("password");
     		}
     	}
-    	catch(Exception ex) {
+    	catch(SQLException ex) {
     		System.out.println(ex.getMessage());
-    		return new User();
     	}
+		finally {
+			jdbcConnectionPool.takeIn(conn);
+			return new User(id, Qaccount, Qpassword);
+		}
     }
 }
