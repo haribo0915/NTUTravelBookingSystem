@@ -7,7 +7,9 @@ import org.oop18.exceptions.UpdateException;
 
 import java.util.List;
 
-
+/**
+ * CRUD utils of order for controllers
+ */
 public interface OrderAdapter {
     Order createOrder(Order order) throws CreateException;
     Order updateOrder(Order order) throws UpdateException, EntryNotFoundException;

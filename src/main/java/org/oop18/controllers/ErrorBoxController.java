@@ -8,6 +8,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
+ * The error box controller is used to notify the user that
+ * some operations are illegal and thus fail.
+ *
  * @author - Haribo
  */
 public class ErrorBoxController implements Initializable {

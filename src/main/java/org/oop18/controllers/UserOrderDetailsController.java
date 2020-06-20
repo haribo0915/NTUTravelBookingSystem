@@ -26,6 +26,9 @@ import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
 /**
+ * The user order details controller is used to help user check the details
+ * of the order he has made or modify the order under several rules.
+ *
  * @author - Haribo
  */
 public class UserOrderDetailsController implements Initializable {
@@ -58,6 +61,12 @@ public class UserOrderDetailsController implements Initializable {
         this.order = selectedUserOrder;
     }
 
+    /**
+     * Initialize the specific order information.
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -72,6 +81,14 @@ public class UserOrderDetailsController implements Initializable {
         }
     }
 
+    /**
+     * Handle the modifying order event. It will allow user to modify his order if
+     * the order format is correct, the quota (maximum headcount) of the product is enough
+     * and there are at least 10 days left before the start date of the trip; otherwise it
+     * will pop up an alert box to restrict the user to modify it.
+     *
+     * @param event
+     */
     public void saveOrderHandler(Event event) {
         try {
             Integer adultCount = Integer.valueOf(adultCountTextField.getText());

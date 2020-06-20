@@ -11,6 +11,9 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
+ * The mock product adapter is used to test the controllers and views
+ * before jdbc product adapter is completed.
+ *
  * @author - Haribo
  */
 public class StubProductAdapter implements ProductAdapter {

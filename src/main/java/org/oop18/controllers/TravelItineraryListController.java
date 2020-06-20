@@ -32,6 +32,9 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 
 /**
+ * The travel itinerary list controller is used to query products,
+ * create order and load user order list.
+ *
  * @author - Haribo
  */
 public class TravelItineraryListController implements Initializable {
@@ -83,6 +86,12 @@ public class TravelItineraryListController implements Initializable {
         this.currentUser = currentUser;
     }
 
+    /**
+     * Initialize product table view and the combo box
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         List<Product> productList = new ArrayList<>();
@@ -116,12 +125,23 @@ public class TravelItineraryListController implements Initializable {
         productUpperBoundCol.setCellValueFactory(new PropertyValueFactory<>("upperBound"));
     }
 
+    /**
+     * Refresh the product table view for specific product list
+     *
+     * @param productList
+     */
     private void refreshProductTable(List<Product> productList) {
         productTableObservableList.clear();
         productTableObservableList.addAll(productList);
         productTable.setItems(productTableObservableList);
     }
 
+    /**
+     * Handle the query products event. It will query products by specific travel code
+     * or start date.
+     *
+     * @param event
+     */
     public void queryProductsHandler(Event event) {
         cachedThreadPool.execute(() -> {
             String travelCodeName = travelCodeComboBox.getValue();
@@ -145,6 +165,12 @@ public class TravelItineraryListController implements Initializable {
         });
     }
 
+    /**
+     * Handle create order event. It will show up a order form for user to
+     * fill in.
+     *
+     * @param event
+     */
     public void createOrderHandler(Event event) {
         cachedThreadPool.execute(() -> {
             try {
@@ -175,6 +201,11 @@ public class TravelItineraryListController implements Initializable {
         }
     }
 
+    /**
+     * It will show the order list of specific user.
+     *
+     * @param event
+     */
     public void queryUserOrdersHandler(Event event) {
         cachedThreadPool.execute(() -> {
             try {

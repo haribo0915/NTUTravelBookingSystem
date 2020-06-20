@@ -13,6 +13,8 @@ import java.io.IOException;
 
 /**
  * JavaFX App
+ *
+ * The entry point of NTU Travel Booking System
  */
 public class App extends Application {
 

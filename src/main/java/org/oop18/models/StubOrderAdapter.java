@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Random;
 
 /**
+ * The mock order adapter is used to test the controllers and views
+ * before jdbc order adapter is completed.
+ *
  * @author - Haribo
  */
 public class StubOrderAdapter implements OrderAdapter {

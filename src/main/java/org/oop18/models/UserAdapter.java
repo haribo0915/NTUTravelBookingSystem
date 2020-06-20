@@ -6,7 +6,9 @@ import org.oop18.exceptions.EntryNotFoundException;
 import org.oop18.exceptions.UpdateException;
 
 
-
+/**
+ * CRUD utils of user for controllers
+ */
 public interface UserAdapter {
     User createUser(User user) throws EntryExistsException;
     User updateUser(User user) throws UpdateException;

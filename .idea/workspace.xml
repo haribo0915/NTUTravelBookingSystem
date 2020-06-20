@@ -3,15 +3,32 @@
   <component name="ChangeListManager">
     <list default="true" id="c032c4c3-3666-40af-b728-705b393f261b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/ErrorBoxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/ErrorBoxController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/OrderDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/OrderDialogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/SingletonCachedThreadPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/SingletonCachedThreadPool.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/TravelItineraryListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/TravelItineraryListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/UserOrderDetailsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/UserOrderDetailsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/UserOrderListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/UserOrderListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCOrderAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCOrderAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCProductAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCProductAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCUserAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCUserAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/oop18/controllers/OrderDialogController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/oop18/controllers/OrderDialogController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/oop18/controllers/TravelItineraryListController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/oop18/controllers/TravelItineraryListController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/oop18/controllers/UserOrderListController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/oop18/controllers/UserOrderListController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/oop18/models/JDBCUserAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/oop18/models/JDBCUserAdapter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCConnectionPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCConnectionPool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCOrderAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCOrderAdapterFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCProductAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCProductAdapterFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCUserAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCUserAdapterFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/ObjectPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/ObjectPool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/OrderAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/OrderAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/OrderAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/OrderAdapterFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/ProductAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/ProductAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/ProductAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/ProductAdapterFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubOrderAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubOrderAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubOrderAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubOrderAdapterFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubProductAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubProductAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubProductAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubProductAdapterFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubUserAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubUserAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubUserAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubUserAdapterFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/UserAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/UserAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/UserAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/UserAdapterFactory.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +169,7 @@
       <workItem from="1592063788336" duration="1591000" />
       <workItem from="1592533751651" duration="18396000" />
       <workItem from="1592583987863" duration="3568000" />
-      <workItem from="1592628600889" duration="7011000" />
+      <workItem from="1592628600889" duration="13131000" />
     </task>
     <servers />
   </component>

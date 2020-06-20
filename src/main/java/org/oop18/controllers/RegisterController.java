@@ -20,6 +20,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
+ * The register controller is used to handle the register event,
+ * help new user to sign up and coordinate with views and models.
+ *
  * @author - Haribo
  */
 public class RegisterController implements Initializable {
@@ -49,6 +52,12 @@ public class RegisterController implements Initializable {
 
     }
 
+    /**
+     * Handle the register event. It will load the travel itinerary list if user
+     * sign up successfully; otherwise it will pop up an alert box to warn illegal input format.
+     *
+     * @param event
+     */
     public void registerHandler(ActionEvent event) {
         try {
             User user = new User(userAccountTextField.getText(), userPasswordTextField.getText());

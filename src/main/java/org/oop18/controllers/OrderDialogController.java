@@ -26,6 +26,9 @@ import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
 /**
+ * The order dialog controller is used to create a new order of
+ * specific product if the order is valid.
+ *
  * @author - Haribo
  */
 public class OrderDialogController implements Initializable {
@@ -56,6 +59,12 @@ public class OrderDialogController implements Initializable {
         this.order = new Order();
     }
 
+    /**
+     * Initialize the product information of the order.
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         productTitleTextField.setText(product.getTitle());
@@ -63,6 +72,14 @@ public class OrderDialogController implements Initializable {
         productEndDateTextField.setText(String.valueOf(product.getEndDate()));
     }
 
+    /**
+     * Handle the save order event. It will allow user to create his order if
+     * the order format is correct, the quota (maximum headcount) of the product is enough
+     * and there are at least 10 days left before the start date of the trip; otherwise it
+     * will pop up an alert box to restrict the user to create it.
+     *
+     * @param event
+     */
     public void saveOrderHandler(Event event) {
         try {
             Integer adultCount = Integer.valueOf(adultCountTextField.getText());

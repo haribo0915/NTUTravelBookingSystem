@@ -22,6 +22,9 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 
 /**
+ * The login controller is used to handle the login event,
+ * verify the user and coordinate with views and models.
+ *
  * @author - Haribo
  */
 public class LoginController {
@@ -50,6 +53,12 @@ public class LoginController {
         this.orderAdapterFactory = orderAdapterFactory;
     }
 
+    /**
+     * Handle the login event. It will load the travel itinerary list if user
+     * login successfully; otherwise it will pop up an alert box to warn illegal user.
+     *
+     * @param event
+     */
     public void loginHandler(ActionEvent event) {
         cachedThreadPool.execute(() -> {
             try {
@@ -82,6 +91,11 @@ public class LoginController {
         }
     }
 
+    /**
+     * Load the register page for new user
+     *
+     * @param event
+     */
     public void registerHandler(ActionEvent event) {
         cachedThreadPool.execute(() -> {
             try {

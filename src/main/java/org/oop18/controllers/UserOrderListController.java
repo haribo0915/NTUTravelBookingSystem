@@ -35,6 +35,9 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 
 /**
+ * The user order list controller is used to show all the orders
+ * of specific user, delete or select the specific order.
+ *
  * @author - Haribo
  */
 public class UserOrderListController implements Initializable {
@@ -76,6 +79,12 @@ public class UserOrderListController implements Initializable {
         this.currentUser = currentUser;
     }
 
+    /**
+     * Initialize the order table view of specific user.
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -85,7 +94,6 @@ public class UserOrderListController implements Initializable {
         } catch (EntryNotFoundException e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {
-            System.out.println("I am here");
             e.printStackTrace();
         } finally {
             orderTableObservableList.addAll(orderList);
@@ -123,6 +131,11 @@ public class UserOrderListController implements Initializable {
         orderTable.setItems(orderTableObservableList);
     }
 
+    /**
+     * Load the specific order details
+     *
+     * @param event
+     */
     public void querySelectedUserOrderHandler(Event event) {
         try {
             Order selectedUserOrder = orderTable.getSelectionModel().getSelectedItem();
@@ -153,6 +166,13 @@ public class UserOrderListController implements Initializable {
         }
     }
 
+    /**
+     * Delete the specific order if there are at least 10 days left before
+     * the start date of the trip; otherwise it will pop up an alert box to
+     * restrict the user to delete it.
+     *
+     * @param event
+     */
     public void deleteSelectedUserOrderHandler(Event event) {
         cachedThreadPool.execute(() -> {
             try {
