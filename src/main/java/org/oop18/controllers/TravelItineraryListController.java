@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.oop18.entities.Product;
@@ -52,8 +53,6 @@ public class TravelItineraryListController implements Initializable {
 
     @FXML
     private Button queryProductsBtn;
-    @FXML
-    private Button createRestaurantBtn;
     @FXML
     private Button queryUserOrdersBtn;
     @FXML
@@ -112,7 +111,7 @@ public class TravelItineraryListController implements Initializable {
             e.printStackTrace();
         } finally {
             initProductTable();
-            //queryProductsBtn.setDisable(true);
+            createOrderBtn.setDisable(true);
         }
     }
 
@@ -123,6 +122,10 @@ public class TravelItineraryListController implements Initializable {
         productEndDateCol.setCellValueFactory(new PropertyValueFactory<>("endDate"));
         productLowerBoundCol.setCellValueFactory(new PropertyValueFactory<>("lowerBound"));
         productUpperBoundCol.setCellValueFactory(new PropertyValueFactory<>("upperBound"));
+    }
+
+    public void userClickedOnProductTable(MouseEvent event) {
+        createOrderBtn.setDisable(false);
     }
 
     /**

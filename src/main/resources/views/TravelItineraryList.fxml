@@ -50,7 +50,7 @@
       </AnchorPane>
       <AnchorPane layoutY="106.0" prefHeight="393.0" prefWidth="700.0">
          <children>
-            <TableView fx:id="productTable" prefHeight="366.0" prefWidth="700.0">
+            <TableView fx:id="productTable" onMouseClicked="#userClickedOnProductTable" prefHeight="366.0" prefWidth="700.0">
               <columns>
                 <TableColumn fx:id="productTitleCol" prefWidth="292.7999938726425" style="-fx-background-color: #ffffff; -fx-selection-bar: #ffffff;" text="Title" />
                 <TableColumn fx:id="productPriceCol" minWidth="0.0" prefWidth="60.0" style="-fx-background-color: #ffffff; -fx-selection-bar: #ffffff;" text="price" />

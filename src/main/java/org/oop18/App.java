@@ -6,8 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.oop18.controllers.LoginController;
-import org.oop18.models.*;
-
+import org.oop18.models.JDBCOrderAdapterFactory;
+import org.oop18.models.JDBCProductAdapterFactory;
+import org.oop18.models.JDBCUserAdapterFactory;
 
 import java.io.IOException;
 

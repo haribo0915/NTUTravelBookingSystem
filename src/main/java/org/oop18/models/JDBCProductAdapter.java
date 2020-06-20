@@ -61,9 +61,6 @@ public class JDBCProductAdapter implements ProductAdapter {
 		return new Product(product_id, travel_code,title,product_key,price,start,end, lower_bound,upper_bound);
     }
 
-
-    //TODO: travelCode and startDate may be null, please select all the products first and filter them according to given travelCode and startDate,
-    //      you can take StubProductAdapter as reference.
     @Override
     public List<Product> queryProducts(TravelCode travelCode, Timestamp startDate) throws EntryNotFoundException {
     	List<Product> productList = new ArrayList<>();

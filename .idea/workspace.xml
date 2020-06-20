@@ -4,31 +4,27 @@
     <list default="true" id="c032c4c3-3666-40af-b728-705b393f261b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/ErrorBoxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/ErrorBoxController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/OrderDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/OrderDialogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/RegisterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/SingletonCachedThreadPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/SingletonCachedThreadPool.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/TravelItineraryListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/TravelItineraryListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/UserOrderDetailsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/UserOrderDetailsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/UserOrderListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/controllers/UserOrderListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCConnectionPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCConnectionPool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCOrderAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCOrderAdapterFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCProductAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCProductAdapterFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCUserAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCUserAdapterFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/ObjectPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/ObjectPool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/OrderAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/OrderAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/OrderAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/OrderAdapterFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/ProductAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/ProductAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/ProductAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/ProductAdapterFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubOrderAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubOrderAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubOrderAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubOrderAdapterFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubProductAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubProductAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubProductAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubProductAdapterFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubUserAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubUserAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubUserAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/StubUserAdapterFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/UserAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/UserAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/UserAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/UserAdapterFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCProductAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/oop18/models/JDBCProductAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/ErrorBox.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/ErrorBox.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/OrderDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/OrderDialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Register.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Register.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/TravelItineraryList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/TravelItineraryList.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/UserOrderList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/UserOrderList.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/oop18/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/oop18/App.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/oop18/controllers/RegisterController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/oop18/controllers/RegisterController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/oop18/controllers/TravelItineraryListController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/oop18/controllers/TravelItineraryListController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/oop18/controllers/UserOrderListController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/oop18/controllers/UserOrderListController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/oop18/models/JDBCOrderAdapterFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/oop18/models/JDBCOrderAdapterFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/oop18/models/JDBCProductAdapterFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/oop18/models/JDBCProductAdapterFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/oop18/models/JDBCUserAdapterFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/oop18/models/JDBCUserAdapterFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/oop18/models/StubOrderAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/oop18/models/StubOrderAdapter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/oop18/models/StubOrderAdapterFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/oop18/models/StubOrderAdapterFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/oop18/models/StubProductAdapterFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/oop18/models/StubProductAdapterFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/oop18/models/StubUserAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/oop18/models/StubUserAdapter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/oop18/models/StubUserAdapterFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/oop18/models/StubUserAdapterFactory.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +165,7 @@
       <workItem from="1592063788336" duration="1591000" />
       <workItem from="1592533751651" duration="18396000" />
       <workItem from="1592583987863" duration="3568000" />
-      <workItem from="1592628600889" duration="13131000" />
+      <workItem from="1592628600889" duration="14589000" />
     </task>
     <servers />
   </component>
@@ -207,38 +203,38 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="138" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1592559597873" />
-    <state width="1187" height="114" key="GridCell.Tab.0.bottom" timestamp="1592640523365">
+    <state width="872" height="116" key="GridCell.Tab.0.bottom" timestamp="1592675356473">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1187" height="114" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1592640523365" />
-    <state width="1187" height="114" key="GridCell.Tab.0.center" timestamp="1592640523365">
+    <state width="872" height="116" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1592675356473" />
+    <state width="872" height="116" key="GridCell.Tab.0.center" timestamp="1592675356473">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1187" height="114" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1592640523365" />
-    <state width="1187" height="114" key="GridCell.Tab.0.left" timestamp="1592640523365">
+    <state width="872" height="116" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1592675356473" />
+    <state width="872" height="116" key="GridCell.Tab.0.left" timestamp="1592675356473">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1187" height="114" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1592640523365" />
-    <state width="1187" height="114" key="GridCell.Tab.0.right" timestamp="1592640523365">
+    <state width="872" height="116" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1592675356473" />
+    <state width="872" height="116" key="GridCell.Tab.0.right" timestamp="1592675356473">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1187" height="114" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1592640523365" />
-    <state width="1493" height="23" key="GridCell.Tab.1.bottom" timestamp="1591258412996">
+    <state width="872" height="116" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1592675356473" />
+    <state width="746" height="23" key="GridCell.Tab.1.bottom" timestamp="1592675312924">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="23" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1591258412996" />
-    <state width="1493" height="23" key="GridCell.Tab.1.center" timestamp="1591258412996">
+    <state width="746" height="23" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1592675312924" />
+    <state width="746" height="23" key="GridCell.Tab.1.center" timestamp="1592675312924">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="23" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1591258412996" />
-    <state width="1493" height="23" key="GridCell.Tab.1.left" timestamp="1591258412995">
+    <state width="746" height="23" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1592675312924" />
+    <state width="746" height="23" key="GridCell.Tab.1.left" timestamp="1592675312923">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="23" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1591258412995" />
-    <state width="1493" height="23" key="GridCell.Tab.1.right" timestamp="1591258412996">
+    <state width="746" height="23" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1592675312923" />
+    <state width="746" height="23" key="GridCell.Tab.1.right" timestamp="1592675312924">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="23" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1591258412996" />
+    <state width="746" height="23" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1592675312924" />
     <state x="249" y="0" key="SettingsEditor" timestamp="1590996596257">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.oop18.entities.Order;
@@ -99,6 +100,9 @@ public class UserOrderListController implements Initializable {
             orderTableObservableList.addAll(orderList);
             orderTable.setItems(orderTableObservableList);
             initOrderTable();
+
+            querySelectedUserOrderBtn.setDisable(true);
+            deleteSelectedUserOrderBtn.setDisable(true);
         }
     }
 
@@ -109,6 +113,11 @@ public class UserOrderListController implements Initializable {
         orderChildrenCountCol.setCellValueFactory(new PropertyValueFactory<>("childrenCount"));
         orderTotalPriceCol.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
         orderCreatedTimeCol.setCellValueFactory(new PropertyValueFactory<>("createdTime"));
+    }
+
+    public void userClickedOnOrderTable(MouseEvent event) {
+        querySelectedUserOrderBtn.setDisable(false);
+        deleteSelectedUserOrderBtn.setDisable(false);
     }
 
     private void refreshAllOrderTable() {
