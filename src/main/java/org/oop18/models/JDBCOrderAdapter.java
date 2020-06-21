@@ -37,9 +37,9 @@ public class JDBCOrderAdapter implements OrderAdapter {
             rs.next();
             if( rs.getInt("id") != order.getProductId() ) 
                 throw new CreateException("Invalid Product ID");
-            Integer min_people = rs.getInt("lower_bound");
-            Integer max_people = rs.getInt("upper_bound");
-            Timestamp start_date = rs.getTimestamp("start_date");
+            Integer minPeople = rs.getInt("lower_bound");
+            Integer maxPeople = rs.getInt("upper_bound");
+            Timestamp startDate = rs.getTimestamp("start_date");
 
             Integer sum = 0;
             rs = st.executeQuery( String.format("SELECT SUM(adult_count) FROM `order` WHERE product_id=%d", order.getProductId()));
@@ -54,12 +54,12 @@ public class JDBCOrderAdapter implements OrderAdapter {
                 throw new CreateException("Number of Children needs to be non-negative.");
 
             // check upper bound
-            if( (sum+order.getAdultCount()+order.getChildrenCount()) > max_people )
-                throw new CreateException( String.format("This trip handles at most %d people.\nAn order of %d people is placed.\nCurrently registered: %d.", max_people, order.getAdultCount()+order.getChildrenCount(), sum));
+            if( (sum+order.getAdultCount()+order.getChildrenCount()) > maxPeople )
+                throw new CreateException( String.format("This trip handles at most %d people.\nAn order of %d people is placed.\nCurrently registered: %d.", maxPeople, order.getAdultCount()+order.getChildrenCount(), sum));
 
             // cannot make order for incoming 10 day
             long oneDay = 1 * 24 * 60 * 60 * 1000;
-            Timestamp deadline = new Timestamp(start_date.getTime() - 10*oneDay);
+            Timestamp deadline = new Timestamp(startDate.getTime() - 10*oneDay);
             if( (order.getCreatedTime()).after(deadline) ) {
                 throw new CreateException("Cannot place orders for incoming 10 days.");
             }
@@ -134,7 +134,7 @@ public class JDBCOrderAdapter implements OrderAdapter {
             if( rs.getInt("id") != order.getProductId() ) 
                 throw new UpdateException("Invalid Product ID");
             
-            Integer max_people = rs.getInt("upper_bound");
+            Integer maxPeople = rs.getInt("upper_bound");
             
             // calculate and check # of people
             Integer sum = 0;
@@ -150,8 +150,8 @@ public class JDBCOrderAdapter implements OrderAdapter {
                 throw new UpdateException("Number of Children needs to be non-negative.");
             
             // throw exception if current guest exceeds upper bound
-            if( (sum+order.getAdultCount()+order.getChildrenCount()-originalAdultCount-originalChildrenCount) > max_people )
-                throw new UpdateException( String.format("This trip handles at most %d people.\nAn order of %d people is placed.\nCurrently registered: %d.", max_people, order.getAdultCount()+order.getChildrenCount(), sum));
+            if( (sum+order.getAdultCount()+order.getChildrenCount()-originalAdultCount-originalChildrenCount) > maxPeople)
+                throw new UpdateException( String.format("This trip handles at most %d people.\nAn order of %d people is placed.\nCurrently registered: %d.", maxPeople, order.getAdultCount()+order.getChildrenCount(), sum));
             
             //update order
             query = String.format("UPDATE `order` SET `adult_count` = \'%d\', `children_count` = \'%d\' WHERE (`id` = \'%d\')", order.getAdultCount(), order.getChildrenCount(), order.getId());
