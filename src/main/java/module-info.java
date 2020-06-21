@@ -1,4 +1,4 @@
-module org.example {
+module org.oop18 {
     requires javafx.controls;
     requires java.sql;
     requires javafx.fxml;
