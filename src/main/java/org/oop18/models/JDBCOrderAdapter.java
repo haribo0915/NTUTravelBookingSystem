@@ -154,7 +154,7 @@ public class JDBCOrderAdapter implements OrderAdapter {
                 throw new UpdateException( String.format("This trip handles at most %d people.\nAn order of %d people is placed.\nCurrently registered: %d.", maxPeople, order.getAdultCount()+order.getChildrenCount(), sum));
             
             //update order
-            query = String.format("UPDATE `order` SET `adult_count` = \'%d\', `children_count` = \'%d\' WHERE (`id` = \'%d\')", order.getAdultCount(), order.getChildrenCount(), order.getId());
+            query = String.format("UPDATE `order` SET `adult_count` = \'%d\', `children_count` = \'%d\', `total_price` = \'%d\', `created_time` = \'%s\'  WHERE (`id` = \'%d\')", order.getAdultCount(), order.getChildrenCount(), order.getTotalPrice(), order.getCreatedTime(), order.getId());
             st.executeUpdate(query);
             
             //make sure the order is updated

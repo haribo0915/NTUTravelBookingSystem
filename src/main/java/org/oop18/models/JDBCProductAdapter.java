@@ -17,7 +17,7 @@ public class JDBCProductAdapter implements ProductAdapter {
     public JDBCProductAdapter() {
         jdbcConnectionPool = JDBCConnectionPool.getInstance();
     }
-    
+
     @Override
     //retrieve data by product id
     public Product queryProduct(Integer id) throws EntryNotFoundException {
@@ -32,7 +32,7 @@ public class JDBCProductAdapter implements ProductAdapter {
         Integer upper_bound=null;
 
         Connection conn = jdbcConnectionPool.takeOut();
-        
+
         try {
             String query = String.format("SELECT * from product WHERE id=%d",id);
             Statement st = conn.createStatement();
@@ -51,7 +51,7 @@ public class JDBCProductAdapter implements ProductAdapter {
             lower_bound=rs.getInt("lower_bound");
             upper_bound=rs.getInt("upper_bound");
 
-                     
+
         }catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -74,7 +74,7 @@ public class JDBCProductAdapter implements ProductAdapter {
             ResultSet rs = st.executeQuery(query);
             if (rs.next() == false) {
                 throw new EntryNotFoundException("Product not found!");
-            } 
+            }
             do {
                 Integer product_id = rs.getInt("id");
                 Integer travel_code=rs.getInt("travel_code");
@@ -84,7 +84,7 @@ public class JDBCProductAdapter implements ProductAdapter {
                 Timestamp start = Timestamp.valueOf(sdf.format(rs.getTimestamp("start_date")));
                 Timestamp end = Timestamp.valueOf(sdf.format(rs.getTimestamp("end_date")));
                 Integer lower_bound=rs.getInt("lower_bound");
-                Integer upper_bound=rs.getInt("upper_bound");       
+                Integer upper_bound=rs.getInt("upper_bound");
                 productList.add(new Product(product_id, travel_code,title,product_key,price,start,end, lower_bound,upper_bound));
             }
             while(rs.next());
@@ -102,7 +102,7 @@ public class JDBCProductAdapter implements ProductAdapter {
                                     .collect(Collectors.toList());
             }
         }catch (SQLException ex) {
-            System.out.println(ex.getMessage());        
+            System.out.println(ex.getMessage());
         }
         finally {
             jdbcConnectionPool.takeIn(conn);
@@ -122,15 +122,15 @@ public class JDBCProductAdapter implements ProductAdapter {
             ResultSet rs = st.executeQuery(query);
             if (rs.next() == false) {
                 throw new EntryNotFoundException("Product not found!");
-            }  
+            }
             do {
                 Integer travel_code =rs.getInt("travel_code");
                 String travel_code_name=rs.getString("travel_code_name");
-            
+
                 travelCodeList.add(new TravelCode(travel_code, travel_code_name));
             }
             while(rs.next());
-             
+
         }catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -146,7 +146,7 @@ public class JDBCProductAdapter implements ProductAdapter {
         String travel_code_name=null;
 
         Connection conn = jdbcConnectionPool.takeOut();
-        
+
         try{
             String query = String.format("SELECT * from travel_code where travel_code_name=\"%s\"",travelCodeName);
             Statement st = conn.createStatement();
@@ -155,8 +155,8 @@ public class JDBCProductAdapter implements ProductAdapter {
                 throw new EntryNotFoundException("Product not found!");
             }
             travel_code =rs.getInt("travel_code");
-            travel_code_name=rs.getString("travel_code_name");  
-            
+            travel_code_name=rs.getString("travel_code_name");
+
         }catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
